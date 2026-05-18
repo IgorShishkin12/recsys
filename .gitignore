@@ -33,6 +33,6 @@ mlruns/
 .vscode/
 .DS_Store
 
-# Profiler chrome traces (large — load via Perfetto/chrome://tracing locally)
+# Profiler chrome traces (large — open via Perfetto at ui.perfetto.dev)
 profiles/**/train_trace.json
 profiles/**/infer_trace.json
