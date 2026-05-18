@@ -105,9 +105,11 @@ def make_plots(
 
     xs = BATCH_SIZES
 
-    for metric, ylabel, fname in [
-        ("time", "Inference time (ms / step)", "scaling_time_bs.png"),
-        ("mem",  "Peak GPU memory (MB)",        "scaling_mem_bs.png"),
+    for metric, per_sample, ylabel, fname in [
+        ("time", False, "Inference time (ms / step)",              "scaling_time_bs.png"),
+        ("mem",  False, "Peak GPU memory (MB)",                    "scaling_mem_bs.png"),
+        ("time", True,  "Inference time per sample (ms / sample)", "scaling_time_per_sample_bs.png"),
+        ("mem",  True,  "Peak GPU memory per sample (MB / sample)","scaling_mem_per_sample_bs.png"),
     ]:
         fig, ax = plt.subplots(figsize=(10, 6))
 
@@ -122,6 +124,8 @@ def make_plots(
                     ys.append(None)
                 else:
                     v = pt[0] if metric == "time" else pt[1]
+                    if per_sample:
+                        v = v / B
                     ys.append(v)
                     if v is not None:
                         last_valid_x, last_valid_y = B, v
@@ -176,75 +180,94 @@ def make_plots(
 
 def _parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument("--out",    default="profiles")
-    p.add_argument("--device", default="cuda")
-    p.add_argument("--models", nargs="*", default=None)
+    p.add_argument("--out",       default="profiles")
+    p.add_argument("--device",    default="cuda")
+    p.add_argument("--models",    nargs="*", default=None)
+    p.add_argument("--from-csv",  metavar="CSV",
+                   help="Skip sweep; load existing scaling_results.csv and regenerate plots only.")
     return p.parse_args()
+
+
+def _load_csv(csv_path: Path) -> Dict[str, Dict[int, Optional[Tuple[float, float]]]]:
+    """Reconstruct results dict from a previously saved CSV."""
+    results: Dict[str, Dict[int, Optional[Tuple[float, float]]]] = {}
+    with open(csv_path, newline="") as f:
+        for row in csv.DictReader(f):
+            name = row["model"]
+            B    = int(row["batch_size"])
+            results.setdefault(name, {})[B] = (float(row["time_ms"]), float(row["mem_mb"]))
+    return results
 
 
 def main() -> None:
     args = _parse_args()
-    device = torch.device(
-        args.device if (args.device == "cpu" or torch.cuda.is_available()) else "cpu"
-    )
     out_dir = Path(args.out)
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    selected = args.models or list(MODEL_SPECS.keys())
+    if args.from_csv:
+        csv_path = Path(args.from_csv)
+        print(f"Loading results from {csv_path} …", flush=True)
+        results = _load_csv(csv_path)
+        print(f"  {sum(len(v) for v in results.values())} data points across {len(results)} models")
+    else:
+        device = torch.device(
+            args.device if (args.device == "cpu" or torch.cuda.is_available()) else "cpu"
+        )
+        selected = args.models or list(MODEL_SPECS.keys())
 
-    print(f"Device : {device}", flush=True)
-    if device.type == "cuda":
-        print(f"GPU    : {torch.cuda.get_device_name(device)}", flush=True)
-    print(f"Models : {selected}", flush=True)
-    print(f"Sweep  : batch_size={BATCH_SIZES}  seq_len={FIXED_LEN}", flush=True)
-    print(f"Timing : warmup={N_WARMUP}  measure={N_MEASURE}", flush=True)
-    print()
-
-    # results[model_name][batch_size] = (time_ms, mem_mb) or None on OOM
-    results: Dict[str, Dict[int, Optional[Tuple[float, float]]]] = {}
-    csv_rows: List[Dict] = []
-
-    for name in selected:
-        spec = MODEL_SPECS.get(name)
-        if spec is None:
-            print(f"[skip] unknown: {name}")
-            continue
-
-        print(f"── {name} ──", flush=True)
-        try:
-            model = build_model(spec["model_cfg"], n_items=N_ITEMS).to(device)
-        except Exception as exc:
-            print(f"  [SKIP] build failed: {exc}")
-            continue
-
-        results[name] = {}
-
-        for B in BATCH_SIZES:
-            try:
-                t, m = measure(model, B, device)
-                results[name][B] = (t, m)
-                print(f"  B={B:<5}  {t:7.2f} ms  {m:7.0f} MB", flush=True)
-                csv_rows.append({"model": name, "batch_size": B,
-                                 "time_ms": round(t, 4), "mem_mb": round(m, 1)})
-            except torch.cuda.OutOfMemoryError:
-                results[name][B] = None
-                print(f"  B={B:<5}  OOM", flush=True)
-                torch.cuda.empty_cache()
-            except Exception as exc:
-                results[name][B] = None
-                print(f"  B={B:<5}  ERROR: {exc}", flush=True)
-
-        del model
-        torch.cuda.empty_cache()
+        print(f"Device : {device}", flush=True)
+        if device.type == "cuda":
+            print(f"GPU    : {torch.cuda.get_device_name(device)}", flush=True)
+        print(f"Models : {selected}", flush=True)
+        print(f"Sweep  : batch_size={BATCH_SIZES}  seq_len={FIXED_LEN}", flush=True)
+        print(f"Timing : warmup={N_WARMUP}  measure={N_MEASURE}", flush=True)
         print()
 
-    # Save CSV
-    csv_path = out_dir / "scaling_results.csv"
-    with open(csv_path, "w", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=["model", "batch_size", "time_ms", "mem_mb"])
-        w.writeheader()
-        w.writerows(csv_rows)
-    print(f"  → {csv_path}")
+        # results[model_name][batch_size] = (time_ms, mem_mb) or None on OOM
+        results: Dict[str, Dict[int, Optional[Tuple[float, float]]]] = {}
+        csv_rows: List[Dict] = []
+
+        for name in selected:
+            spec = MODEL_SPECS.get(name)
+            if spec is None:
+                print(f"[skip] unknown: {name}")
+                continue
+
+            print(f"── {name} ──", flush=True)
+            try:
+                model = build_model(spec["model_cfg"], n_items=N_ITEMS).to(device)
+            except Exception as exc:
+                print(f"  [SKIP] build failed: {exc}")
+                continue
+
+            results[name] = {}
+
+            for B in BATCH_SIZES:
+                try:
+                    t, m = measure(model, B, device)
+                    results[name][B] = (t, m)
+                    print(f"  B={B:<5}  {t:7.2f} ms  {m:7.0f} MB", flush=True)
+                    csv_rows.append({"model": name, "batch_size": B,
+                                     "time_ms": round(t, 4), "mem_mb": round(m, 1)})
+                except torch.cuda.OutOfMemoryError:
+                    results[name][B] = None
+                    print(f"  B={B:<5}  OOM", flush=True)
+                    torch.cuda.empty_cache()
+                except Exception as exc:
+                    results[name][B] = None
+                    print(f"  B={B:<5}  ERROR: {exc}", flush=True)
+
+            del model
+            torch.cuda.empty_cache()
+            print()
+
+        # Save CSV
+        csv_path = out_dir / "scaling_results.csv"
+        with open(csv_path, "w", newline="") as f:
+            w = csv.DictWriter(f, fieldnames=["model", "batch_size", "time_ms", "mem_mb"])
+            w.writeheader()
+            w.writerows(csv_rows)
+        print(f"  → {csv_path}")
 
     # Make plots
     print("Generating plots …", flush=True)
