@@ -207,6 +207,7 @@ def train_one_epoch(
     n_steps = 0
     epoch_loss_sum = 0.0
     epoch_eff_len_sum = 0.0
+    epoch_n_steps = 0
     for batch in loader:
         users = batch["user"].to(device, non_blocking=True)
         inputs = batch["input"].to(device, non_blocking=True)
@@ -265,6 +266,7 @@ def train_one_epoch(
         epoch_loss_sum += loss_val
         epoch_eff_len_sum += float((inputs != 0).float().sum(dim=1).mean().item())
         n_steps += 1
+        epoch_n_steps += 1
         global_step += 1
         if global_step % log_every == 0:
             avg_loss = round(running / n_steps, 4)
@@ -282,8 +284,8 @@ def train_one_epoch(
             running, n_steps = 0.0, 0
 
     epoch_t = round(time.time() - t0, 1)
-    epoch_avg_loss = epoch_loss_sum / max(n_steps, 1)
-    epoch_avg_eff_len = epoch_eff_len_sum / max(n_steps, 1)
+    epoch_avg_loss = epoch_loss_sum / max(epoch_n_steps, 1)
+    epoch_avg_eff_len = epoch_eff_len_sum / max(epoch_n_steps, 1)
     log.log(
         tag="train_epoch",
         epoch=epoch,
