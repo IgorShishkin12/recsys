@@ -1,0 +1,55 @@
+# SASRec with session-shuffle augmentation + larger context + curriculum training.
+#
+# Changes vs configs/sasrec.yaml:
+#   - max_len: 200 -> 512  (covers dataset p90=332, p99=1111)
+#   - aug.shuffle_sessions: true  (permute items within 30-min session clusters)
+#   - aug.random_window: true     (random contiguous window instead of always last)
+#   - training.curriculum_warmup_frac: 0.3  (ramp to length-proportional sampling)
+
+seed: 42
+
+model:
+  name: sasrec
+  d: 256
+  n_blocks: 3
+  n_heads: 4
+  max_len: 512
+  dropout: 0.2
+  ffn_mult: 4
+  use_rope: true
+  use_ligr_gates: false
+  use_side: false
+  side_use_genome: true
+  side_dropout: 0.1
+
+loss:
+  name: sampled_softmax
+  n_neg: 128          # reduced from 256: neg_emb [B,L,K,d] was 16 GB at B=256,K=256,L=512
+  gbce_t: 0.75
+  sampling: uniform
+  in_batch_negatives: false
+
+aug:
+  sse_pt_p: 0.0
+  shuffle_sessions: true    # shuffle within 30-min session clusters
+  random_window: true       # random contiguous window instead of always last
+
+training:
+  batch_size: 128         # reduced from 256: L=512 × K=128 × d=256 × B → ~4 GB neg_emb
+  eval_batch_size: 1024
+  num_workers: 8
+  lr: 1.0e-3
+  weight_decay: 0.0
+  warmup_frac: 0.01
+  min_lr_ratio: 1.0
+  ema_decay: 0.0
+  grad_clip: 1.0
+  max_epochs: 100
+  eval_every_epochs: 1
+  early_stop_patience: 10
+  log_every_steps: 200
+  snapshot_ensemble: true
+  curriculum_warmup_frac: 0.3   # ramp from uniform to length-proportional over first 30 epochs
+
+eval:
+  ks: [5, 10, 20]

@@ -36,6 +36,7 @@ from torch.utils.data import DataLoader
 
 from .augment import sse_pt_augment
 from .data import (
+    LengthCurriculumSampler,
     ProcessedData,
     SeqEvalDataset,
     SeqTrainDataset,
@@ -191,7 +192,8 @@ def train_one_epoch(
     log: JSONLogger,
     epoch: int,
     global_step: int,
-) -> int:
+) -> Tuple[int, float, float]:
+    """Returns (global_step, epoch_avg_loss, epoch_avg_eff_len)."""
     model.train()
     n_neg = cfg["loss"]["n_neg"]
     n_items = cfg["_n_items"]
@@ -203,6 +205,8 @@ def train_one_epoch(
     t0 = time.time()
     running = 0.0
     n_steps = 0
+    epoch_loss_sum = 0.0
+    epoch_eff_len_sum = 0.0
     for batch in loader:
         users = batch["user"].to(device, non_blocking=True)
         inputs = batch["input"].to(device, non_blocking=True)
@@ -258,6 +262,8 @@ def train_one_epoch(
             ema.update(model)
 
         running += loss_val
+        epoch_loss_sum += loss_val
+        epoch_eff_len_sum += float((inputs != 0).float().sum(dim=1).mean().item())
         n_steps += 1
         global_step += 1
         if global_step % log_every == 0:
@@ -276,14 +282,19 @@ def train_one_epoch(
             running, n_steps = 0.0, 0
 
     epoch_t = round(time.time() - t0, 1)
+    epoch_avg_loss = epoch_loss_sum / max(n_steps, 1)
+    epoch_avg_eff_len = epoch_eff_len_sum / max(n_steps, 1)
     log.log(
         tag="train_epoch",
         epoch=epoch,
         steps=global_step,
         wallclock_s=epoch_t,
+        avg_loss=round(epoch_avg_loss, 4),
+        avg_eff_len=round(epoch_avg_eff_len, 1),
     )
-    print(f"[epoch {epoch} done] wall={epoch_t}s  total_steps={global_step}")
-    return global_step
+    print(f"[epoch {epoch} done] wall={epoch_t}s  total_steps={global_step}  "
+          f"avg_loss={epoch_avg_loss:.4f}  avg_eff_len={epoch_avg_eff_len:.1f}")
+    return global_step, epoch_avg_loss, epoch_avg_eff_len
 
 
 # ============================== Main =================================== #
@@ -334,7 +345,16 @@ def run_training(cfg: Dict[str, Any], args: argparse.Namespace) -> Dict[str, Any
     cfg["_n_items"] = proc.n_items
 
     max_len = cfg["model"]["max_len"]
-    train_ds = SeqTrainDataset(train_seq, max_len=max_len, min_train_len=2)
+    aug_cfg = cfg.get("aug", {})
+    shuffle_sessions = aug_cfg.get("shuffle_sessions", False)
+    random_window    = aug_cfg.get("random_window", False)
+    session_cuts = proc.user_session_cuts if shuffle_sessions else None
+    train_ds = SeqTrainDataset(
+        train_seq, max_len=max_len, min_train_len=2,
+        session_cuts=session_cuts,
+        shuffle_sessions=shuffle_sessions,
+        random_window=random_window,
+    )
     val_ds = SeqEvalDataset(train_seq, val_target, max_len=max_len)
     test_ds = SeqEvalDataset(train_seq, test_target, max_len=max_len,
                              prepend_seq={u: [v] for u, v in val_target.items()})
@@ -343,8 +363,14 @@ def run_training(cfg: Dict[str, Any], args: argparse.Namespace) -> Dict[str, Any
     bs_eval = cfg["training"].get("eval_batch_size", 512)
     nw = cfg["training"].get("num_workers", 4)
 
+    max_epochs = args.max_epochs or cfg["training"]["max_epochs"]
+    warmup_frac = cfg["training"].get("curriculum_warmup_frac", 0.0)
+    warmup_epochs = int(warmup_frac * max_epochs)
+    seq_lens = np.array([len(train_seq[u]) for u in train_ds.users])
+    curriculum_sampler = LengthCurriculumSampler(seq_lens, warmup_epochs=warmup_epochs)
+
     train_loader = DataLoader(
-        train_ds, batch_size=bs_train, shuffle=True, drop_last=True,
+        train_ds, batch_size=bs_train, sampler=curriculum_sampler, drop_last=True,
         num_workers=nw, pin_memory=(device.type == "cuda"), persistent_workers=(nw > 0),
     )
     val_loader = DataLoader(
@@ -392,7 +418,6 @@ def run_training(cfg: Dict[str, Any], args: argparse.Namespace) -> Dict[str, Any
         split_decay_params(model, weight_decay=wd),
         lr=base_lr, betas=(0.9, 0.98), eps=1e-8,
     )
-    max_epochs = args.max_epochs or cfg["training"]["max_epochs"]
     steps_per_epoch = max(1, len(train_loader))
     total_steps = steps_per_epoch * max_epochs
     warmup_steps = int(cfg["training"].get("warmup_frac", 0.05) * total_steps)
@@ -420,7 +445,8 @@ def run_training(cfg: Dict[str, Any], args: argparse.Namespace) -> Dict[str, Any
     best_state: Optional[Dict[str, torch.Tensor]] = None
 
     for epoch in range(1, max_epochs + 1):
-        global_step = train_one_epoch(
+        curriculum_sampler.set_epoch(epoch - 1)
+        global_step, _, _ = train_one_epoch(
             model, train_loader, loss_fn, optimizer, scheduler, ema,
             device, cfg, pop_weights, log_q, autocast_dtype, log,
             epoch=epoch, global_step=global_step,

@@ -10,17 +10,19 @@ Protocol (canonical, matches gSASRec / TOPAPEC/esasrec):
 from __future__ import annotations
 
 import pickle
-from dataclasses import dataclass
+import random
+from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Dict, List, Sequence, Tuple
+from typing import Dict, List, Optional, Sequence, Tuple
 
 import numpy as np
 import pandas as pd
 import torch
-from torch.utils.data import Dataset
+from torch.utils.data import Dataset, Sampler
 
 
 PAD_ID = 0
+SESSION_GAP_SEC = 1800  # 30-minute session boundary
 
 
 @dataclass
@@ -33,6 +35,8 @@ class ProcessedData:
     item_pop: np.ndarray                    # shape [n_items+1], item_pop[i] = freq, [0]=0
     movie_id_to_idx: Dict[int, int]         # original movieId -> 1..n_items
     user_id_to_idx: Dict[int, int]          # original userId -> 0..n_users-1
+    # Session-start indices per user (0-based into user_seq); None for old pickles.
+    user_session_cuts: Optional[Dict[int, List[int]]] = None
 
     @property
     def vocab_size(self) -> int:
@@ -94,8 +98,13 @@ def preprocess_ml20m(
     df["user_idx"] = df["userId"].map(user_id_to_idx)
 
     user_seq: Dict[int, List[int]] = {}
+    user_session_cuts: Dict[int, List[int]] = {}
     for uidx, group in df.groupby("user_idx", sort=False):
         user_seq[int(uidx)] = group["item_idx"].tolist()
+        ts = group["timestamp"].to_numpy()
+        gaps = np.diff(ts)
+        cuts = (np.where(gaps > SESSION_GAP_SEC)[0] + 1).tolist()
+        user_session_cuts[int(uidx)] = cuts
 
     n_users = len(user_seq)
     n_items = len(movie_id_to_idx)
@@ -104,8 +113,10 @@ def preprocess_ml20m(
     for seq in user_seq.values():
         for i in seq:
             item_pop[i] += 1
+    n_cuts_total = sum(len(c) for c in user_session_cuts.values())
     print(f"[data] n_users={n_users:,} n_items={n_items:,} "
-          f"avg_seq_len={np.mean([len(s) for s in user_seq.values()]):.1f}")
+          f"avg_seq_len={np.mean([len(s) for s in user_seq.values()]):.1f} "
+          f"session_cuts={n_cuts_total:,}")
 
     processed = ProcessedData(
         user_seq=user_seq,
@@ -114,6 +125,7 @@ def preprocess_ml20m(
         item_pop=item_pop,
         movie_id_to_idx=movie_id_to_idx,
         user_id_to_idx=user_id_to_idx,
+        user_session_cuts=user_session_cuts,
     )
     with open(out_path, "wb") as f:
         pickle.dump(processed, f, protocol=pickle.HIGHEST_PROTOCOL)
@@ -153,6 +165,18 @@ def left_pad(seq: Sequence[int], max_len: int) -> List[int]:
     return [PAD_ID] * (max_len - len(seq)) + seq
 
 
+def _shuffle_within_sessions(seq: List[int], cuts: List[int]) -> List[int]:
+    """Shuffle item order within each 30-min session cluster, preserving cluster boundaries."""
+    cuts_in_range = [c for c in cuts if 0 < c < len(seq)]
+    boundaries = [0] + cuts_in_range + [len(seq)]
+    out: List[int] = []
+    for a, b in zip(boundaries, boundaries[1:]):
+        chunk = seq[a:b]
+        random.shuffle(chunk)
+        out.extend(chunk)
+    return out
+
+
 class SeqTrainDataset(Dataset):
     """Shifted-sequence next-item training.
 
@@ -160,6 +184,10 @@ class SeqTrainDataset(Dataset):
       input  = left_pad([i_1, ..., i_{n-1}], max_len)
       target = left_pad([i_2, ..., i_n],     max_len)
     Loss must be masked where input==PAD (these positions have no real history).
+
+    Optional augmentations:
+      shuffle_sessions: permute items within 30-min session clusters each call.
+      random_window: sample a random contiguous window instead of always the last.
     """
 
     def __init__(
@@ -167,19 +195,35 @@ class SeqTrainDataset(Dataset):
         train_seq: Dict[int, List[int]],
         max_len: int = 200,
         min_train_len: int = 2,
+        session_cuts: Optional[Dict[int, List[int]]] = None,
+        shuffle_sessions: bool = False,
+        random_window: bool = False,
     ):
         self.users: List[int] = [u for u, s in train_seq.items() if len(s) >= min_train_len]
         self.train_seq = train_seq
         self.max_len = max_len
+        self.session_cuts = session_cuts
+        self.shuffle_sessions = shuffle_sessions
+        self.random_window = random_window
 
     def __len__(self) -> int:
         return len(self.users)
 
     def __getitem__(self, idx: int) -> Dict[str, torch.Tensor]:
         u = self.users[idx]
-        seq = self.train_seq[u]
-        # Take last max_len+1 items so we have room for both input and target.
-        seq = seq[-(self.max_len + 1):]
+        seq = list(self.train_seq[u])
+
+        if self.shuffle_sessions and self.session_cuts is not None:
+            cuts = self.session_cuts.get(u, [])
+            if cuts:
+                seq = _shuffle_within_sessions(seq, cuts)
+
+        if self.random_window and len(seq) > self.max_len + 1:
+            start = random.randint(0, len(seq) - self.max_len - 1)
+            seq = seq[start : start + self.max_len + 1]
+        else:
+            seq = seq[-(self.max_len + 1):]
+
         inp = seq[:-1]
         tgt = seq[1:]
         inp = left_pad(inp, self.max_len)
@@ -189,6 +233,35 @@ class SeqTrainDataset(Dataset):
             "input": torch.tensor(inp, dtype=torch.long),
             "target": torch.tensor(tgt, dtype=torch.long),
         }
+
+
+class LengthCurriculumSampler(Sampler):
+    """Linearly ramps from uniform to length-proportional user sampling.
+
+    Epoch 0: all users equally likely.
+    Epoch >= warmup_epochs: users sampled proportional to sequence length.
+    Between: linear interpolation.
+    """
+
+    def __init__(self, seq_lens: np.ndarray, warmup_epochs: int):
+        self.seq_lens = seq_lens.astype(np.float64)
+        self.warmup_epochs = max(warmup_epochs, 1)
+        self.epoch = 0
+
+    def set_epoch(self, epoch: int) -> None:
+        self.epoch = epoch
+
+    def __iter__(self):
+        t = min(self.epoch / self.warmup_epochs, 1.0)
+        uniform = np.ones(len(self.seq_lens), dtype=np.float64)
+        weights = (1.0 - t) * uniform + t * self.seq_lens
+        weights /= weights.sum()
+        indices = np.random.choice(len(self.seq_lens), size=len(self.seq_lens),
+                                   replace=True, p=weights)
+        return iter(indices.tolist())
+
+    def __len__(self) -> int:
+        return len(self.seq_lens)
 
 
 class SeqEvalDataset(Dataset):
