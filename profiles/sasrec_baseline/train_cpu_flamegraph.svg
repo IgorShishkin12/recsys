@@ -1,0 +1,442 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="212">
+<style>text{font-family:monospace;pointer-events:none}rect{cursor:default}rect:hover{stroke:#111;stroke-width:1.5}</style>
+<rect width="1500" height="212" fill="#f9f9f9"/>
+<text x="750" y="22" text-anchor="middle" font-size="15" font-weight="bold" fill="#222">sasrec_baseline · train · CPU ops</text>
+<text x="750" y="40" text-anchor="middle" font-size="11" fill="#555">total=2372.2 ms · 262 unique stacks · 20 profiled steps</text>
+<text x="750" y="55" text-anchor="middle" font-size="10" fill="#888">n_items=27279  max_len=200  (wider = more time)</text>
+<g>
+  <title>sasrec_baseline.train | 821.61 ms (34.6%)</title>
+  <rect x="0.0" y="60" width="518.7" height="19" fill="rgb(219,196,84)" stroke="white" stroke-width="0.4"/>
+  <text x="3.0" y="75" font-size="11" fill="#111">sasrec_baseline.train</text>
+</g>
+<g>
+  <title>autograd::engine::evaluate_function: IndexBackward0 | 512.00 ms (21.6%)</title>
+  <rect x="519.5" y="60" width="323.0" height="19" fill="rgb(204,191,54)" stroke="white" stroke-width="0.4"/>
+  <text x="522.5" y="75" font-size="11" fill="#111">autograd::engine::evaluate_function: IndexBack</text>
+</g>
+<g>
+  <title>autograd::engine::evaluate_function: MmBackward0 | 214.22 ms (9.0%)</title>
+  <rect x="843.3" y="60" width="134.7" height="19" fill="rgb(242,195,74)" stroke="white" stroke-width="0.4"/>
+  <text x="846.3" y="75" font-size="11" fill="#111">autograd::engine::e</text>
+</g>
+<g>
+  <title>autograd::engine::evaluate_function: MulBackward0 | 210.54 ms (8.9%)</title>
+  <rect x="978.7" y="60" width="132.3" height="19" fill="rgb(228,225,57)" stroke="white" stroke-width="0.4"/>
+  <text x="981.7" y="75" font-size="11" fill="#111">autograd::engine::e</text>
+</g>
+<g>
+  <title>autograd::engine::evaluate_function: ScaledDotProductEfficientAttentionBackward0 | 189.14 ms (8.0%)</title>
+  <rect x="1111.9" y="60" width="118.8" height="19" fill="rgb(242,170,82)" stroke="white" stroke-width="0.4"/>
+  <text x="1114.9" y="75" font-size="11" fill="#111">autograd::engine:</text>
+</g>
+<g>
+  <title>autograd::engine::evaluate_function: EmbeddingBackward0 | 184.93 ms (7.8%)</title>
+  <rect x="1231.5" y="60" width="116.1" height="19" fill="rgb(230,180,72)" stroke="white" stroke-width="0.4"/>
+  <text x="1234.5" y="75" font-size="11" fill="#111">autograd::engine</text>
+</g>
+<g>
+  <title>autograd::engine::evaluate_function: NativeLayerNormBackward0 | 145.47 ms (6.1%)</title>
+  <rect x="1348.4" y="60" width="91.2" height="19" fill="rgb(212,96,65)" stroke="white" stroke-width="0.4"/>
+  <text x="1351.4" y="75" font-size="11" fill="#111">autograd::eng</text>
+</g>
+<g>
+  <title>autograd::engine::evaluate_function: UnbindBackward0 | 55.72 ms (2.3%)</title>
+  <rect x="1440.4" y="60" width="34.4" height="19" fill="rgb(228,117,65)" stroke="white" stroke-width="0.4"/>
+  <text x="1443.4" y="75" font-size="11" fill="#111">autog</text>
+</g>
+<g>
+  <title>autograd::engine::evaluate_function: AddBackward0 | 7.51 ms (0.3%)</title>
+  <rect x="1475.6" y="60" width="3.9" height="19" fill="rgb(212,170,65)" stroke="white" stroke-width="0.4"/>
+  <text x="1478.6" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>autograd::engine::evaluate_function: ViewBackward0 | 5.54 ms (0.2%)</title>
+  <rect x="1480.4" y="60" width="2.7" height="19" fill="rgb(246,173,55)" stroke="white" stroke-width="0.4"/>
+  <text x="1483.4" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>autograd::engine::evaluate_function: torch::autograd::AccumulateGrad | 5.52 ms (0.2%)</title>
+  <rect x="1483.9" y="60" width="2.7" height="19" fill="rgb(202,135,48)" stroke="white" stroke-width="0.4"/>
+  <text x="1486.9" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>autograd::engine::evaluate_function: MeanBackward0 | 4.41 ms (0.2%)</title>
+  <rect x="1487.4" y="60" width="2.0" height="19" fill="rgb(224,128,59)" stroke="white" stroke-width="0.4"/>
+  <text x="1490.4" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>autograd::engine::evaluate_function: BmmBackward0 | 3.43 ms (0.1%)</title>
+  <rect x="1490.1" y="60" width="1.4" height="19" fill="rgb(230,59,56)" stroke="white" stroke-width="0.4"/>
+  <text x="1493.1" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>autograd::engine::evaluate_function: TBackward0 | 2.90 ms (0.1%)</title>
+  <rect x="1492.3" y="60" width="1.0" height="19" fill="rgb(210,92,65)" stroke="white" stroke-width="0.4"/>
+  <text x="1495.3" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>autograd::engine::evaluate_function: SiluBackward0 | 2.68 ms (0.1%)</title>
+  <rect x="1494.2" y="60" width="0.9" height="19" fill="rgb(209,161,66)" stroke="white" stroke-width="0.4"/>
+  <text x="1497.2" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>autograd::engine::evaluate_function: UnsafeViewBackward0 | 2.35 ms (0.1%)</title>
+  <rect x="1495.8" y="60" width="0.7" height="19" fill="rgb(218,215,33)" stroke="white" stroke-width="0.4"/>
+  <text x="1498.8" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>autograd::engine::evaluate_function: TransposeBackward0 | 1.60 ms (0.1%)</title>
+  <rect x="1497.3" y="60" width="0.2" height="19" fill="rgb(216,183,63)" stroke="white" stroke-width="0.4"/>
+  <text x="1500.3" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::scaled_dot_product_attention | 68.47 ms (2.9%)</title>
+  <rect x="0.0" y="80" width="42.5" height="19" fill="rgb(220,114,91)" stroke="white" stroke-width="0.4"/>
+  <text x="3.0" y="95" font-size="11" fill="#111">aten::</text>
+</g>
+<g>
+  <title>aten::eye | 38.28 ms (1.6%)</title>
+  <rect x="43.3" y="80" width="23.4" height="19" fill="rgb(214,122,57)" stroke="white" stroke-width="0.4"/>
+  <text x="46.3" y="95" font-size="11" fill="#111">ate</text>
+</g>
+<g>
+  <title>Optimizer.step#Adam.step | 24.66 ms (1.0%)</title>
+  <rect x="67.5" y="80" width="14.8" height="19" fill="rgb(244,140,65)" stroke="white" stroke-width="0.4"/>
+  <text x="70.5" y="95" font-size="11" fill="#111">Op</text>
+</g>
+<g>
+  <title>aten::linear | 24.13 ms (1.0%)</title>
+  <rect x="83.1" y="80" width="14.5" height="19" fill="rgb(230,187,95)" stroke="white" stroke-width="0.4"/>
+  <text x="86.1" y="95" font-size="11" fill="#111">at</text>
+</g>
+<g>
+  <title>aten::mean | 20.48 ms (0.9%)</title>
+  <rect x="98.3" y="80" width="12.2" height="19" fill="rgb(198,171,36)" stroke="white" stroke-width="0.4"/>
+  <text x="101.3" y="95" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::__or__ | 15.53 ms (0.7%)</title>
+  <rect x="111.3" y="80" width="9.0" height="19" fill="rgb(223,125,60)" stroke="white" stroke-width="0.4"/>
+  <text x="114.3" y="95" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::add | 9.76 ms (0.4%)</title>
+  <rect x="121.1" y="80" width="5.4" height="19" fill="rgb(206,174,60)" stroke="white" stroke-width="0.4"/>
+  <text x="124.1" y="95" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::layer_norm | 9.03 ms (0.4%)</title>
+  <rect x="127.3" y="80" width="4.9" height="19" fill="rgb(247,177,55)" stroke="white" stroke-width="0.4"/>
+  <text x="130.3" y="95" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::ne | 7.23 ms (0.3%)</title>
+  <rect x="133.0" y="80" width="3.8" height="19" fill="rgb(228,76,50)" stroke="white" stroke-width="0.4"/>
+  <text x="136.0" y="95" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::einsum | 3.26 ms (0.1%)</title>
+  <rect x="137.6" y="80" width="1.3" height="19" fill="rgb(220,78,47)" stroke="white" stroke-width="0.4"/>
+  <text x="140.6" y="95" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::arange | 2.97 ms (0.1%)</title>
+  <rect x="139.6" y="80" width="1.1" height="19" fill="rgb(230,107,41)" stroke="white" stroke-width="0.4"/>
+  <text x="142.6" y="95" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::embedding | 2.89 ms (0.1%)</title>
+  <rect x="141.5" y="80" width="1.0" height="19" fill="rgb(202,170,81)" stroke="white" stroke-width="0.4"/>
+  <text x="144.5" y="95" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::sum | 2.56 ms (0.1%)</title>
+  <rect x="143.3" y="80" width="0.8" height="19" fill="rgb(225,183,44)" stroke="white" stroke-width="0.4"/>
+  <text x="146.3" y="95" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::eq | 2.08 ms (0.1%)</title>
+  <rect x="145.0" y="80" width="0.5" height="19" fill="rgb(230,101,72)" stroke="white" stroke-width="0.4"/>
+  <text x="148.0" y="95" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>IndexBackward0 | 385.30 ms (16.2%)</title>
+  <rect x="519.5" y="80" width="242.8" height="19" fill="rgb(223,112,37)" stroke="white" stroke-width="0.4"/>
+  <text x="522.5" y="95" font-size="11" fill="#111">IndexBackward0</text>
+</g>
+<g>
+  <title>MmBackward0 | 141.55 ms (6.0%)</title>
+  <rect x="843.3" y="80" width="88.7" height="19" fill="rgb(209,109,59)" stroke="white" stroke-width="0.4"/>
+  <text x="846.3" y="95" font-size="11" fill="#111">MmBackward0</text>
+</g>
+<g>
+  <title>MulBackward0 | 139.45 ms (5.9%)</title>
+  <rect x="978.7" y="80" width="87.4" height="19" fill="rgb(243,198,73)" stroke="white" stroke-width="0.4"/>
+  <text x="981.7" y="95" font-size="11" fill="#111">MulBackward0</text>
+</g>
+<g>
+  <title>ScaledDotProductEfficientAttentionBackward0 | 153.47 ms (6.5%)</title>
+  <rect x="1111.9" y="80" width="96.2" height="19" fill="rgb(202,58,48)" stroke="white" stroke-width="0.4"/>
+  <text x="1114.9" y="95" font-size="11" fill="#111">ScaledDotProd</text>
+</g>
+<g>
+  <title>EmbeddingBackward0 | 138.91 ms (5.9%)</title>
+  <rect x="1231.5" y="80" width="87.0" height="19" fill="rgb(219,196,84)" stroke="white" stroke-width="0.4"/>
+  <text x="1234.5" y="95" font-size="11" fill="#111">EmbeddingBac</text>
+</g>
+<g>
+  <title>NativeLayerNormBackward0 | 76.15 ms (3.2%)</title>
+  <rect x="1348.4" y="80" width="47.4" height="19" fill="rgb(248,198,104)" stroke="white" stroke-width="0.4"/>
+  <text x="1351.4" y="95" font-size="11" fill="#111">Native</text>
+</g>
+<g>
+  <title>aten::add_ | 15.18 ms (0.6%)</title>
+  <rect x="1396.6" y="80" width="8.8" height="19" fill="rgb(230,137,87)" stroke="white" stroke-width="0.4"/>
+  <text x="1399.6" y="95" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>UnbindBackward0 | 41.52 ms (1.8%)</title>
+  <rect x="1440.4" y="80" width="25.5" height="19" fill="rgb(240,188,75)" stroke="white" stroke-width="0.4"/>
+  <text x="1443.4" y="95" font-size="11" fill="#111">Unb</text>
+</g>
+<g>
+  <title>aten::sum | 2.63 ms (0.1%)</title>
+  <rect x="1475.6" y="80" width="0.9" height="19" fill="rgb(225,183,44)" stroke="white" stroke-width="0.4"/>
+  <text x="1478.6" y="95" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>ViewBackward0 | 1.79 ms (0.1%)</title>
+  <rect x="1480.4" y="80" width="0.3" height="19" fill="rgb(240,176,107)" stroke="white" stroke-width="0.4"/>
+  <text x="1483.4" y="95" font-size="11" fill="#111">V</text>
+</g>
+<g>
+  <title>torch::autograd::AccumulateGrad | 2.50 ms (0.1%)</title>
+  <rect x="1483.9" y="80" width="0.8" height="19" fill="rgb(220,193,39)" stroke="white" stroke-width="0.4"/>
+  <text x="1486.9" y="95" font-size="11" fill="#111">t</text>
+</g>
+<g>
+  <title>MeanBackward0 | 3.05 ms (0.1%)</title>
+  <rect x="1487.4" y="80" width="1.1" height="19" fill="rgb(235,224,62)" stroke="white" stroke-width="0.4"/>
+  <text x="1490.4" y="95" font-size="11" fill="#111">M</text>
+</g>
+<g>
+  <title>BmmBackward0 | 2.10 ms (0.1%)</title>
+  <rect x="1490.1" y="80" width="0.5" height="19" fill="rgb(200,121,75)" stroke="white" stroke-width="0.4"/>
+  <text x="1493.1" y="95" font-size="11" fill="#111">B</text>
+</g>
+<g>
+  <title>SiluBackward0 | 1.58 ms (0.1%)</title>
+  <rect x="1494.2" y="80" width="0.2" height="19" fill="rgb(211,127,79)" stroke="white" stroke-width="0.4"/>
+  <text x="1497.2" y="95" font-size="11" fill="#111">S</text>
+</g>
+<g>
+  <title>aten::_scaled_dot_product_efficient_attention | 19.17 ms (0.8%)</title>
+  <rect x="0.0" y="100" width="11.3" height="19" fill="rgb(241,127,99)" stroke="white" stroke-width="0.4"/>
+  <text x="3.0" y="115" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::logical_not | 15.96 ms (0.7%)</title>
+  <rect x="12.1" y="100" width="9.3" height="19" fill="rgb(224,171,97)" stroke="white" stroke-width="0.4"/>
+  <text x="15.1" y="115" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::where | 6.36 ms (0.3%)</title>
+  <rect x="22.2" y="100" width="3.2" height="19" fill="rgb(248,165,87)" stroke="white" stroke-width="0.4"/>
+  <text x="25.2" y="115" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::scalar_tensor | 3.62 ms (0.2%)</title>
+  <rect x="26.2" y="100" width="1.5" height="19" fill="rgb(231,171,102)" stroke="white" stroke-width="0.4"/>
+  <text x="29.2" y="115" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::eye | 30.00 ms (1.3%)</title>
+  <rect x="43.3" y="100" width="18.2" height="19" fill="rgb(214,122,57)" stroke="white" stroke-width="0.4"/>
+  <text x="46.3" y="115" font-size="11" fill="#111">at</text>
+</g>
+<g>
+  <title>aten::_foreach_sqrt | 4.61 ms (0.2%)</title>
+  <rect x="67.5" y="100" width="2.1" height="19" fill="rgb(209,109,59)" stroke="white" stroke-width="0.4"/>
+  <text x="70.5" y="115" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::matmul | 13.97 ms (0.6%)</title>
+  <rect x="83.1" y="100" width="8.0" height="19" fill="rgb(227,221,35)" stroke="white" stroke-width="0.4"/>
+  <text x="86.1" y="115" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::mean | 10.18 ms (0.4%)</title>
+  <rect x="98.3" y="100" width="5.6" height="19" fill="rgb(198,171,36)" stroke="white" stroke-width="0.4"/>
+  <text x="101.3" y="115" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::bitwise_or | 7.74 ms (0.3%)</title>
+  <rect x="111.3" y="100" width="4.1" height="19" fill="rgb(213,197,57)" stroke="white" stroke-width="0.4"/>
+  <text x="114.3" y="115" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::native_layer_norm | 5.09 ms (0.2%)</title>
+  <rect x="127.3" y="100" width="2.4" height="19" fill="rgb(214,83,71)" stroke="white" stroke-width="0.4"/>
+  <text x="130.3" y="115" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::new_zeros | 148.89 ms (6.3%)</title>
+  <rect x="519.5" y="100" width="93.3" height="19" fill="rgb(236,74,53)" stroke="white" stroke-width="0.4"/>
+  <text x="522.5" y="115" font-size="11" fill="#111">aten::new_zer</text>
+</g>
+<g>
+  <title>aten::_index_put_impl_ | 110.47 ms (4.7%)</title>
+  <rect x="613.7" y="100" width="69.1" height="19" fill="rgb(239,149,59)" stroke="white" stroke-width="0.4"/>
+  <text x="616.7" y="115" font-size="11" fill="#111">aten::_in</text>
+</g>
+<g>
+  <title>aten::mm | 68.28 ms (2.9%)</title>
+  <rect x="843.3" y="100" width="42.4" height="19" fill="rgb(244,72,57)" stroke="white" stroke-width="0.4"/>
+  <text x="846.3" y="115" font-size="11" fill="#111">aten::</text>
+</g>
+<g>
+  <title>aten::t | 1.98 ms (0.1%)</title>
+  <rect x="886.5" y="100" width="0.4" height="19" fill="rgb(201,182,35)" stroke="white" stroke-width="0.4"/>
+  <text x="889.5" y="115" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::mul | 69.62 ms (2.9%)</title>
+  <rect x="978.7" y="100" width="43.2" height="19" fill="rgb(214,110,35)" stroke="white" stroke-width="0.4"/>
+  <text x="981.7" y="115" font-size="11" fill="#111">aten::</text>
+</g>
+<g>
+  <title>aten::_scaled_dot_product_efficient_attention_backward | 118.36 ms (5.0%)</title>
+  <rect x="1111.9" y="100" width="74.0" height="19" fill="rgb(233,196,94)" stroke="white" stroke-width="0.4"/>
+  <text x="1114.9" y="115" font-size="11" fill="#111">aten::_sca</text>
+</g>
+<g>
+  <title>aten::embedding_backward | 93.71 ms (4.0%)</title>
+  <rect x="1231.5" y="100" width="58.5" height="19" fill="rgb(226,218,58)" stroke="white" stroke-width="0.4"/>
+  <text x="1234.5" y="115" font-size="11" fill="#111">aten::em</text>
+</g>
+<g>
+  <title>aten::native_layer_norm_backward | 38.53 ms (1.6%)</title>
+  <rect x="1348.4" y="100" width="23.6" height="19" fill="rgb(248,189,79)" stroke="white" stroke-width="0.4"/>
+  <text x="1351.4" y="115" font-size="11" fill="#111">ate</text>
+</g>
+<g>
+  <title>aten::stack | 27.56 ms (1.2%)</title>
+  <rect x="1440.4" y="100" width="16.6" height="19" fill="rgb(226,134,58)" stroke="white" stroke-width="0.4"/>
+  <text x="1443.4" y="115" font-size="11" fill="#111">at</text>
+</g>
+<g>
+  <title>aten::div | 1.69 ms (0.1%)</title>
+  <rect x="1487.4" y="100" width="0.3" height="19" fill="rgb(207,201,53)" stroke="white" stroke-width="0.4"/>
+  <text x="1490.4" y="115" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::_efficient_attention_forward | 9.23 ms (0.4%)</title>
+  <rect x="0.0" y="120" width="5.0" height="19" fill="rgb(221,80,75)" stroke="white" stroke-width="0.4"/>
+  <text x="3.0" y="135" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::logical_not | 7.85 ms (0.3%)</title>
+  <rect x="12.1" y="120" width="4.2" height="19" fill="rgb(224,171,97)" stroke="white" stroke-width="0.4"/>
+  <text x="15.1" y="135" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::where | 1.86 ms (0.1%)</title>
+  <rect x="22.2" y="120" width="0.4" height="19" fill="rgb(248,165,87)" stroke="white" stroke-width="0.4"/>
+  <text x="25.2" y="135" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::scalar_tensor | 1.71 ms (0.1%)</title>
+  <rect x="23.4" y="120" width="0.3" height="19" fill="rgb(231,171,102)" stroke="white" stroke-width="0.4"/>
+  <text x="26.4" y="135" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::eye | 21.65 ms (0.9%)</title>
+  <rect x="43.3" y="120" width="12.9" height="19" fill="rgb(214,122,57)" stroke="white" stroke-width="0.4"/>
+  <text x="46.3" y="135" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::empty_strided | 1.82 ms (0.1%)</title>
+  <rect x="67.5" y="120" width="0.4" height="19" fill="rgb(226,167,73)" stroke="white" stroke-width="0.4"/>
+  <text x="70.5" y="135" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::mm | 5.47 ms (0.2%)</title>
+  <rect x="83.1" y="120" width="2.7" height="19" fill="rgb(244,72,57)" stroke="white" stroke-width="0.4"/>
+  <text x="86.1" y="135" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::zero_ | 98.70 ms (4.2%)</title>
+  <rect x="519.5" y="120" width="61.6" height="19" fill="rgb(240,188,75)" stroke="white" stroke-width="0.4"/>
+  <text x="522.5" y="135" font-size="11" fill="#111">aten::ze</text>
+</g>
+<g>
+  <title>aten::remainder | 28.04 ms (1.2%)</title>
+  <rect x="613.7" y="120" width="16.9" height="19" fill="rgb(229,80,80)" stroke="white" stroke-width="0.4"/>
+  <text x="616.7" y="135" font-size="11" fill="#111">at</text>
+</g>
+<g>
+  <title>aten::divide_ | 1.64 ms (0.1%)</title>
+  <rect x="631.4" y="120" width="0.2" height="19" fill="rgb(239,177,51)" stroke="white" stroke-width="0.4"/>
+  <text x="634.4" y="135" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::_efficient_attention_backward | 83.26 ms (3.5%)</title>
+  <rect x="1111.9" y="120" width="51.8" height="19" fill="rgb(213,81,71)" stroke="white" stroke-width="0.4"/>
+  <text x="1114.9" y="135" font-size="11" fill="#111">aten::_</text>
+</g>
+<g>
+  <title>aten::embedding_dense_backward | 48.58 ms (2.0%)</title>
+  <rect x="1231.5" y="120" width="29.9" height="19" fill="rgb(220,165,47)" stroke="white" stroke-width="0.4"/>
+  <text x="1234.5" y="135" font-size="11" fill="#111">aten</text>
+</g>
+<g>
+  <title>aten::cat | 13.64 ms (0.6%)</title>
+  <rect x="1440.4" y="120" width="7.8" height="19" fill="rgb(243,184,106)" stroke="white" stroke-width="0.4"/>
+  <text x="1443.4" y="135" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::zero_ | 12.43 ms (0.5%)</title>
+  <rect x="43.3" y="140" width="7.1" height="19" fill="rgb(240,188,75)" stroke="white" stroke-width="0.4"/>
+  <text x="46.3" y="155" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::fill_ | 49.30 ms (2.1%)</title>
+  <rect x="519.5" y="140" width="30.4" height="19" fill="rgb(248,144,96)" stroke="white" stroke-width="0.4"/>
+  <text x="522.5" y="155" font-size="11" fill="#111">aten</text>
+</g>
+<g>
+  <title>aten::remainder | 13.94 ms (0.6%)</title>
+  <rect x="613.7" y="140" width="8.0" height="19" fill="rgb(229,80,80)" stroke="white" stroke-width="0.4"/>
+  <text x="616.7" y="155" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::zero_ | 33.14 ms (1.4%)</title>
+  <rect x="1111.9" y="140" width="20.2" height="19" fill="rgb(240,188,75)" stroke="white" stroke-width="0.4"/>
+  <text x="1114.9" y="155" font-size="11" fill="#111">at</text>
+</g>
+<g>
+  <title>aten::mul | 11.96 ms (0.5%)</title>
+  <rect x="1132.8" y="140" width="6.8" height="19" fill="rgb(214,110,35)" stroke="white" stroke-width="0.4"/>
+  <text x="1135.8" y="155" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::sum | 3.42 ms (0.1%)</title>
+  <rect x="1140.4" y="140" width="1.4" height="19" fill="rgb(225,183,44)" stroke="white" stroke-width="0.4"/>
+  <text x="1143.4" y="155" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::zeros | 1.85 ms (0.1%)</title>
+  <rect x="1231.5" y="140" width="0.4" height="19" fill="rgb(225,212,36)" stroke="white" stroke-width="0.4"/>
+  <text x="1234.5" y="155" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::fill_ | 6.15 ms (0.3%)</title>
+  <rect x="43.3" y="160" width="3.1" height="19" fill="rgb(248,144,96)" stroke="white" stroke-width="0.4"/>
+  <text x="46.3" y="175" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::fill_ | 16.51 ms (0.7%)</title>
+  <rect x="1111.9" y="160" width="9.6" height="19" fill="rgb(248,144,96)" stroke="white" stroke-width="0.4"/>
+  <text x="1114.9" y="175" font-size="11" fill="#111">a</text>
+</g>
+</svg>

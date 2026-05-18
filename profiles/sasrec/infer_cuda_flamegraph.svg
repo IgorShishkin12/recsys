@@ -1,0 +1,397 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="132">
+<style>text{font-family:monospace;pointer-events:none}rect{cursor:default}rect:hover{stroke:#111;stroke-width:1.5}</style>
+<rect width="1500" height="132" fill="#f9f9f9"/>
+<text x="750" y="22" text-anchor="middle" font-size="15" font-weight="bold" fill="#222">sasrec · infer · CUDA kernels</text>
+<text x="750" y="40" text-anchor="middle" font-size="11" fill="#555">total=496.0 ms · 138 unique stacks · 20 profiled steps</text>
+<text x="750" y="55" text-anchor="middle" font-size="10" fill="#888">n_items=27279  max_len=200  (wider = more time)</text>
+<g>
+  <title>(no cpu parent) | 246.40 ms (49.7%)</title>
+  <rect x="0.0" y="60" width="744.4" height="19" fill="rgb(82,66,211)" stroke="white" stroke-width="0.4"/>
+  <text x="3.0" y="75" font-size="11" fill="#111">(no cpu parent)</text>
+</g>
+<g>
+  <title>aten::fill_ | 46.69 ms (9.4%)</title>
+  <rect x="745.2" y="60" width="140.4" height="19" fill="rgb(111,45,181)" stroke="white" stroke-width="0.4"/>
+  <text x="748.2" y="75" font-size="11" fill="#111">aten::fill_</text>
+</g>
+<g>
+  <title>aten::bitwise_and | 34.10 ms (6.9%)</title>
+  <rect x="886.3" y="60" width="102.3" height="19" fill="rgb(84,78,208)" stroke="white" stroke-width="0.4"/>
+  <text x="889.3" y="75" font-size="11" fill="#111">aten::bitwise_</text>
+</g>
+<g>
+  <title>aten::le | 32.87 ms (6.6%)</title>
+  <rect x="989.5" y="60" width="98.6" height="19" fill="rgb(46,63,181)" stroke="white" stroke-width="0.4"/>
+  <text x="992.5" y="75" font-size="11" fill="#111">aten::le</text>
+</g>
+<g>
+  <title>aten::logical_not | 26.11 ms (5.3%)</title>
+  <rect x="1088.9" y="60" width="78.2" height="19" fill="rgb(61,124,195)" stroke="white" stroke-width="0.4"/>
+  <text x="1091.9" y="75" font-size="11" fill="#111">aten::logic</text>
+</g>
+<g>
+  <title>aten::mm | 24.57 ms (5.0%)</title>
+  <rect x="1167.8" y="60" width="73.5" height="19" fill="rgb(94,65,170)" stroke="white" stroke-width="0.4"/>
+  <text x="1170.8" y="75" font-size="11" fill="#111">aten::mm</text>
+</g>
+<g>
+  <title>aten::add | 19.43 ms (3.9%)</title>
+  <rect x="1242.1" y="60" width="58.0" height="19" fill="rgb(99,162,205)" stroke="white" stroke-width="0.4"/>
+  <text x="1245.1" y="75" font-size="11" fill="#111">aten::ad</text>
+</g>
+<g>
+  <title>aten::mul | 16.77 ms (3.4%)</title>
+  <rect x="1300.9" y="60" width="49.9" height="19" fill="rgb(63,66,187)" stroke="white" stroke-width="0.4"/>
+  <text x="1303.9" y="75" font-size="11" fill="#111">aten::m</text>
+</g>
+<g>
+  <title>aten::cat | 8.15 ms (1.6%)</title>
+  <rect x="1351.6" y="60" width="23.9" height="19" fill="rgb(110,51,194)" stroke="white" stroke-width="0.4"/>
+  <text x="1354.6" y="75" font-size="11" fill="#111">ate</text>
+</g>
+<g>
+  <title>aten::sub | 6.11 ms (1.2%)</title>
+  <rect x="1376.3" y="60" width="17.7" height="19" fill="rgb(80,102,194)" stroke="white" stroke-width="0.4"/>
+  <text x="1379.3" y="75" font-size="11" fill="#111">at</text>
+</g>
+<g>
+  <title>aten::arange | 4.83 ms (1.0%)</title>
+  <rect x="1394.8" y="60" width="13.8" height="19" fill="rgb(54,65,183)" stroke="white" stroke-width="0.4"/>
+  <text x="1397.8" y="75" font-size="11" fill="#111">at</text>
+</g>
+<g>
+  <title>aten::bitwise_not | 4.70 ms (0.9%)</title>
+  <rect x="1409.4" y="60" width="13.4" height="19" fill="rgb(78,152,206)" stroke="white" stroke-width="0.4"/>
+  <text x="1412.4" y="75" font-size="11" fill="#111">at</text>
+</g>
+<g>
+  <title>aten::bitwise_or | 2.79 ms (0.6%)</title>
+  <rect x="1423.6" y="60" width="7.7" height="19" fill="rgb(98,119,211)" stroke="white" stroke-width="0.4"/>
+  <text x="1426.6" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::native_layer_norm | 2.76 ms (0.6%)</title>
+  <rect x="1432.0" y="60" width="7.6" height="19" fill="rgb(88,57,170)" stroke="white" stroke-width="0.4"/>
+  <text x="1435.0" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::_efficient_attention_forward | 2.60 ms (0.5%)</title>
+  <rect x="1440.4" y="60" width="7.1" height="19" fill="rgb(95,74,167)" stroke="white" stroke-width="0.4"/>
+  <text x="1443.4" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::narrow | 2.49 ms (0.5%)</title>
+  <rect x="1448.2" y="60" width="6.7" height="19" fill="rgb(68,72,204)" stroke="white" stroke-width="0.4"/>
+  <text x="1451.2" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::empty | 2.29 ms (0.5%)</title>
+  <rect x="1455.8" y="60" width="6.1" height="19" fill="rgb(113,71,191)" stroke="white" stroke-width="0.4"/>
+  <text x="1458.8" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::slice | 1.82 ms (0.4%)</title>
+  <rect x="1462.7" y="60" width="4.7" height="19" fill="rgb(91,149,188)" stroke="white" stroke-width="0.4"/>
+  <text x="1465.7" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::scalar_tensor | 1.63 ms (0.3%)</title>
+  <rect x="1468.2" y="60" width="4.1" height="19" fill="rgb(81,105,192)" stroke="white" stroke-width="0.4"/>
+  <text x="1471.2" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::silu | 1.56 ms (0.3%)</title>
+  <rect x="1473.1" y="60" width="3.9" height="19" fill="rgb(82,64,180)" stroke="white" stroke-width="0.4"/>
+  <text x="1476.1" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::index_select | 1.56 ms (0.3%)</title>
+  <rect x="1477.8" y="60" width="3.9" height="19" fill="rgb(113,71,191)" stroke="white" stroke-width="0.4"/>
+  <text x="1480.8" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::as_strided | 1.52 ms (0.3%)</title>
+  <rect x="1482.5" y="60" width="3.8" height="19" fill="rgb(72,108,187)" stroke="white" stroke-width="0.4"/>
+  <text x="1485.5" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::where | 1.07 ms (0.2%)</title>
+  <rect x="1487.1" y="60" width="2.4" height="19" fill="rgb(111,71,190)" stroke="white" stroke-width="0.4"/>
+  <text x="1490.1" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::matmul | 0.51 ms (0.1%)</title>
+  <rect x="1490.4" y="60" width="0.7" height="19" fill="rgb(90,65,215)" stroke="white" stroke-width="0.4"/>
+  <text x="1493.4" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::transpose | 0.37 ms (0.1%)</title>
+  <rect x="1491.9" y="60" width="0.3" height="19" fill="rgb(52,87,191)" stroke="white" stroke-width="0.4"/>
+  <text x="1494.9" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>ampere_sgemm_128x64_tn | 81.90 ms (16.5%)</title>
+  <rect x="0.0" y="80" width="246.9" height="19" fill="rgb(107,74,173)" stroke="white" stroke-width="0.4"/>
+  <text x="3.0" y="95" font-size="11" fill="#111">ampere_sgemm_128x64_tn</text>
+</g>
+<g>
+  <title>ampere_sgemm_64x64_tn | 66.19 ms (13.3%)</title>
+  <rect x="247.7" y="80" width="199.4" height="19" fill="rgb(81,140,192)" stroke="white" stroke-width="0.4"/>
+  <text x="250.7" y="95" font-size="11" fill="#111">ampere_sgemm_64x64_tn</text>
+</g>
+<g>
+  <title>fmha_cutlassF_f32_aligned_64x64_rf_sm80(PyTorchMemEf… | 39.10 ms (7.9%)</title>
+  <rect x="447.8" y="80" width="117.5" height="19" fill="rgb(52,83,192)" stroke="white" stroke-width="0.4"/>
+  <text x="450.8" y="95" font-size="11" fill="#111">fmha_cutlassF_f3</text>
+</g>
+<g>
+  <title>void at::native::vectorized_elementwise_kernel&lt;4, at… | 22.36 ms (4.5%)</title>
+  <rect x="566.1" y="80" width="66.8" height="19" fill="rgb(69,160,199)" stroke="white" stroke-width="0.4"/>
+  <text x="569.1" y="95" font-size="11" fill="#111">void at::</text>
+</g>
+<g>
+  <title>void at::native::elementwise_kernel&lt;128, 2, at::nati… | 13.37 ms (2.7%)</title>
+  <rect x="633.7" y="80" width="39.6" height="19" fill="rgb(62,139,187)" stroke="white" stroke-width="0.4"/>
+  <text x="636.7" y="95" font-size="11" fill="#111">void </text>
+</g>
+<g>
+  <title>void at::native::(anonymous namespace)::vectorized_l… | 10.78 ms (2.2%)</title>
+  <rect x="674.1" y="80" width="31.8" height="19" fill="rgb(61,129,192)" stroke="white" stroke-width="0.4"/>
+  <text x="677.1" y="95" font-size="11" fill="#111">void</text>
+</g>
+<g>
+  <title>void at::native::(anonymous namespace)::CatArrayBatc… | 8.01 ms (1.6%)</title>
+  <rect x="706.7" y="80" width="23.4" height="19" fill="rgb(146,98,212)" stroke="white" stroke-width="0.4"/>
+  <text x="709.7" y="95" font-size="11" fill="#111">voi</text>
+</g>
+<g>
+  <title>void at::native::elementwise_kernel&lt;128, 4, at::nati… | 3.21 ms (0.6%)</title>
+  <rect x="730.9" y="80" width="8.9" height="19" fill="rgb(81,118,185)" stroke="white" stroke-width="0.4"/>
+  <text x="733.9" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::(anonymous namespace)::indexSelectL… | 1.43 ms (0.3%)</title>
+  <rect x="740.6" y="80" width="3.5" height="19" fill="rgb(82,125,180)" stroke="white" stroke-width="0.4"/>
+  <text x="743.6" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>ampere_sgemm_128x64_tn | 32.30 ms (6.5%)</title>
+  <rect x="745.2" y="80" width="96.9" height="19" fill="rgb(107,74,173)" stroke="white" stroke-width="0.4"/>
+  <text x="748.2" y="95" font-size="11" fill="#111">ampere_sgemm_</text>
+</g>
+<g>
+  <title>void at::native::vectorized_elementwise_kernel&lt;4, at… | 7.20 ms (1.5%)</title>
+  <rect x="842.8" y="80" width="21.0" height="19" fill="rgb(69,160,199)" stroke="white" stroke-width="0.4"/>
+  <text x="845.8" y="95" font-size="11" fill="#111">voi</text>
+</g>
+<g>
+  <title>void at::native::(anonymous namespace)::vectorized_l… | 4.85 ms (1.0%)</title>
+  <rect x="864.6" y="80" width="13.9" height="19" fill="rgb(61,129,192)" stroke="white" stroke-width="0.4"/>
+  <text x="867.6" y="95" font-size="11" fill="#111">vo</text>
+</g>
+<g>
+  <title>void at::native::(anonymous namespace)::indexSelectL… | 1.46 ms (0.3%)</title>
+  <rect x="879.3" y="80" width="3.6" height="19" fill="rgb(82,125,180)" stroke="white" stroke-width="0.4"/>
+  <text x="882.3" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::elementwise_kernel&lt;128, 2, at::nati… | 0.87 ms (0.2%)</title>
+  <rect x="883.7" y="80" width="1.8" height="19" fill="rgb(62,139,187)" stroke="white" stroke-width="0.4"/>
+  <text x="886.7" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>ampere_sgemm_64x64_tn | 33.98 ms (6.9%)</title>
+  <rect x="886.3" y="80" width="102.0" height="19" fill="rgb(81,140,192)" stroke="white" stroke-width="0.4"/>
+  <text x="889.3" y="95" font-size="11" fill="#111">ampere_sgemm_6</text>
+</g>
+<g>
+  <title>ampere_sgemm_64x64_tn | 32.87 ms (6.6%)</title>
+  <rect x="989.5" y="80" width="98.6" height="19" fill="rgb(81,140,192)" stroke="white" stroke-width="0.4"/>
+  <text x="992.5" y="95" font-size="11" fill="#111">ampere_sgemm_6</text>
+</g>
+<g>
+  <title>ampere_sgemm_128x64_tn | 26.02 ms (5.2%)</title>
+  <rect x="1088.9" y="80" width="77.9" height="19" fill="rgb(107,74,173)" stroke="white" stroke-width="0.4"/>
+  <text x="1091.9" y="95" font-size="11" fill="#111">ampere_sgem</text>
+</g>
+<g>
+  <title>ampere_sgemm_128x64_tn | 13.78 ms (2.8%)</title>
+  <rect x="1167.8" y="80" width="40.9" height="19" fill="rgb(107,74,173)" stroke="white" stroke-width="0.4"/>
+  <text x="1170.8" y="95" font-size="11" fill="#111">amper</text>
+</g>
+<g>
+  <title>void at::native::(anonymous namespace)::CatArrayBatc… | 3.27 ms (0.7%)</title>
+  <rect x="1209.5" y="80" width="9.1" height="19" fill="rgb(146,98,212)" stroke="white" stroke-width="0.4"/>
+  <text x="1212.5" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>ampere_sgemm_64x64_tn | 2.51 ms (0.5%)</title>
+  <rect x="1219.4" y="80" width="6.8" height="19" fill="rgb(81,140,192)" stroke="white" stroke-width="0.4"/>
+  <text x="1222.4" y="95" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>void at::native::elementwise_kernel&lt;128, 2, at::nati… | 2.34 ms (0.5%)</title>
+  <rect x="1227.0" y="80" width="6.3" height="19" fill="rgb(62,139,187)" stroke="white" stroke-width="0.4"/>
+  <text x="1230.0" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>fmha_cutlassF_f32_aligned_64x64_rf_sm80(PyTorchMemEf… | 1.24 ms (0.2%)</title>
+  <rect x="1234.1" y="80" width="2.9" height="19" fill="rgb(52,83,192)" stroke="white" stroke-width="0.4"/>
+  <text x="1237.1" y="95" font-size="11" fill="#111">f</text>
+</g>
+<g>
+  <title>void at::native::vectorized_elementwise_kernel&lt;4, at… | 1.23 ms (0.2%)</title>
+  <rect x="1237.8" y="80" width="2.9" height="19" fill="rgb(69,160,199)" stroke="white" stroke-width="0.4"/>
+  <text x="1240.8" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>ampere_sgemm_128x64_tn | 14.12 ms (2.8%)</title>
+  <rect x="1242.1" y="80" width="41.9" height="19" fill="rgb(107,74,173)" stroke="white" stroke-width="0.4"/>
+  <text x="1245.1" y="95" font-size="11" fill="#111">ampere</text>
+</g>
+<g>
+  <title>fmha_cutlassF_f32_aligned_64x64_rf_sm80(PyTorchMemEf… | 2.28 ms (0.5%)</title>
+  <rect x="1284.8" y="80" width="6.1" height="19" fill="rgb(52,83,192)" stroke="white" stroke-width="0.4"/>
+  <text x="1287.8" y="95" font-size="11" fill="#111">f</text>
+</g>
+<g>
+  <title>void at::native::elementwise_kernel&lt;128, 2, at::nati… | 2.02 ms (0.4%)</title>
+  <rect x="1291.7" y="80" width="5.3" height="19" fill="rgb(62,139,187)" stroke="white" stroke-width="0.4"/>
+  <text x="1294.7" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::vectorized_elementwise_kernel&lt;4, at… | 0.83 ms (0.2%)</title>
+  <rect x="1297.8" y="80" width="1.7" height="19" fill="rgb(69,160,199)" stroke="white" stroke-width="0.4"/>
+  <text x="1300.8" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>fmha_cutlassF_f32_aligned_64x64_rf_sm80(PyTorchMemEf… | 12.98 ms (2.6%)</title>
+  <rect x="1300.9" y="80" width="38.5" height="19" fill="rgb(52,83,192)" stroke="white" stroke-width="0.4"/>
+  <text x="1303.9" y="95" font-size="11" fill="#111">fmha_</text>
+</g>
+<g>
+  <title>void at::native::vectorized_elementwise_kernel&lt;4, at… | 1.76 ms (0.4%)</title>
+  <rect x="1340.2" y="80" width="4.5" height="19" fill="rgb(69,160,199)" stroke="white" stroke-width="0.4"/>
+  <text x="1343.2" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::elementwise_kernel&lt;128, 4, at::nati… | 1.63 ms (0.3%)</title>
+  <rect x="1345.5" y="80" width="4.1" height="19" fill="rgb(81,118,185)" stroke="white" stroke-width="0.4"/>
+  <text x="1348.5" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::vectorized_elementwise_kernel&lt;4, at… | 2.81 ms (0.6%)</title>
+  <rect x="1351.6" y="80" width="7.7" height="19" fill="rgb(69,160,199)" stroke="white" stroke-width="0.4"/>
+  <text x="1354.6" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>fmha_cutlassF_f32_aligned_64x64_rf_sm80(PyTorchMemEf… | 2.28 ms (0.5%)</title>
+  <rect x="1360.1" y="80" width="6.1" height="19" fill="rgb(52,83,192)" stroke="white" stroke-width="0.4"/>
+  <text x="1363.1" y="95" font-size="11" fill="#111">f</text>
+</g>
+<g>
+  <title>ampere_sgemm_128x64_tn | 1.64 ms (0.3%)</title>
+  <rect x="1367.0" y="80" width="4.2" height="19" fill="rgb(107,74,173)" stroke="white" stroke-width="0.4"/>
+  <text x="1370.0" y="95" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>ampere_sgemm_64x64_tn | 1.14 ms (0.2%)</title>
+  <rect x="1372.0" y="80" width="2.6" height="19" fill="rgb(81,140,192)" stroke="white" stroke-width="0.4"/>
+  <text x="1375.0" y="95" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>fmha_cutlassF_f32_aligned_64x64_rf_sm80(PyTorchMemEf… | 5.80 ms (1.2%)</title>
+  <rect x="1376.3" y="80" width="16.7" height="19" fill="rgb(52,83,192)" stroke="white" stroke-width="0.4"/>
+  <text x="1379.3" y="95" font-size="11" fill="#111">fm</text>
+</g>
+<g>
+  <title>void at::native::(anonymous namespace)::vectorized_l… | 4.70 ms (0.9%)</title>
+  <rect x="1394.8" y="80" width="13.4" height="19" fill="rgb(61,129,192)" stroke="white" stroke-width="0.4"/>
+  <text x="1397.8" y="95" font-size="11" fill="#111">vo</text>
+</g>
+<g>
+  <title>void at::native::vectorized_elementwise_kernel&lt;4, at… | 4.60 ms (0.9%)</title>
+  <rect x="1409.4" y="80" width="13.1" height="19" fill="rgb(69,160,199)" stroke="white" stroke-width="0.4"/>
+  <text x="1412.4" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::vectorized_elementwise_kernel&lt;4, at… | 2.46 ms (0.5%)</title>
+  <rect x="1423.6" y="80" width="6.7" height="19" fill="rgb(69,160,199)" stroke="white" stroke-width="0.4"/>
+  <text x="1426.6" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::elementwise_kernel&lt;128, 2, at::nati… | 0.97 ms (0.2%)</title>
+  <rect x="1432.0" y="80" width="2.1" height="19" fill="rgb(62,139,187)" stroke="white" stroke-width="0.4"/>
+  <text x="1435.0" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::vectorized_elementwise_kernel&lt;4, at… | 0.88 ms (0.2%)</title>
+  <rect x="1435.0" y="80" width="1.8" height="19" fill="rgb(69,160,199)" stroke="white" stroke-width="0.4"/>
+  <text x="1438.0" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>ampere_sgemm_128x64_tn | 0.45 ms (0.1%)</title>
+  <rect x="1437.6" y="80" width="0.6" height="19" fill="rgb(107,74,173)" stroke="white" stroke-width="0.4"/>
+  <text x="1440.6" y="95" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>void at::native::(anonymous namespace)::vectorized_l… | 1.85 ms (0.4%)</title>
+  <rect x="1440.4" y="80" width="4.8" height="19" fill="rgb(61,129,192)" stroke="white" stroke-width="0.4"/>
+  <text x="1443.4" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::vectorized_elementwise_kernel&lt;4, at… | 0.70 ms (0.1%)</title>
+  <rect x="1446.0" y="80" width="1.3" height="19" fill="rgb(69,160,199)" stroke="white" stroke-width="0.4"/>
+  <text x="1449.0" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>fmha_cutlassF_f32_aligned_64x64_rf_sm80(PyTorchMemEf… | 2.49 ms (0.5%)</title>
+  <rect x="1448.2" y="80" width="6.7" height="19" fill="rgb(52,83,192)" stroke="white" stroke-width="0.4"/>
+  <text x="1451.2" y="95" font-size="11" fill="#111">f</text>
+</g>
+<g>
+  <title>ampere_sgemm_64x64_tn | 1.26 ms (0.3%)</title>
+  <rect x="1455.8" y="80" width="3.0" height="19" fill="rgb(81,140,192)" stroke="white" stroke-width="0.4"/>
+  <text x="1458.8" y="95" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>void at::native::vectorized_elementwise_kernel&lt;4, at… | 0.89 ms (0.2%)</title>
+  <rect x="1459.6" y="80" width="1.9" height="19" fill="rgb(69,160,199)" stroke="white" stroke-width="0.4"/>
+  <text x="1462.6" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>fmha_cutlassF_f32_aligned_64x64_rf_sm80(PyTorchMemEf… | 1.24 ms (0.2%)</title>
+  <rect x="1462.7" y="80" width="2.9" height="19" fill="rgb(52,83,192)" stroke="white" stroke-width="0.4"/>
+  <text x="1465.7" y="95" font-size="11" fill="#111">f</text>
+</g>
+<g>
+  <title>ampere_sgemm_64x64_tn | 1.26 ms (0.3%)</title>
+  <rect x="1468.2" y="80" width="3.0" height="19" fill="rgb(81,140,192)" stroke="white" stroke-width="0.4"/>
+  <text x="1471.2" y="95" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>void at::native::(anonymous namespace)::indexSelectL… | 0.37 ms (0.1%)</title>
+  <rect x="1472.0" y="80" width="0.3" height="19" fill="rgb(82,125,180)" stroke="white" stroke-width="0.4"/>
+  <text x="1475.0" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::elementwise_kernel&lt;128, 2, at::nati… | 1.35 ms (0.3%)</title>
+  <rect x="1473.1" y="80" width="3.3" height="19" fill="rgb(62,139,187)" stroke="white" stroke-width="0.4"/>
+  <text x="1476.1" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>fmha_cutlassF_f32_aligned_64x64_rf_sm80(PyTorchMemEf… | 1.25 ms (0.3%)</title>
+  <rect x="1477.8" y="80" width="3.0" height="19" fill="rgb(52,83,192)" stroke="white" stroke-width="0.4"/>
+  <text x="1480.8" y="95" font-size="11" fill="#111">f</text>
+</g>
+<g>
+  <title>fmha_cutlassF_f32_aligned_64x64_rf_sm80(PyTorchMemEf… | 1.24 ms (0.3%)</title>
+  <rect x="1482.5" y="80" width="3.0" height="19" fill="rgb(52,83,192)" stroke="white" stroke-width="0.4"/>
+  <text x="1485.5" y="95" font-size="11" fill="#111">f</text>
+</g>
+<g>
+  <title>void at::native::elementwise_kernel&lt;128, 2, at::nati… | 0.84 ms (0.2%)</title>
+  <rect x="1487.1" y="80" width="1.7" height="19" fill="rgb(62,139,187)" stroke="white" stroke-width="0.4"/>
+  <text x="1490.1" y="95" font-size="11" fill="#111">v</text>
+</g>
+</svg>

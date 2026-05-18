@@ -1,0 +1,972 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="132">
+<style>text{font-family:monospace;pointer-events:none}rect{cursor:default}rect:hover{stroke:#111;stroke-width:1.5}</style>
+<rect width="1500" height="132" fill="#f9f9f9"/>
+<text x="750" y="22" text-anchor="middle" font-size="15" font-weight="bold" fill="#222">nextitnet · train · CUDA kernels</text>
+<text x="750" y="40" text-anchor="middle" font-size="11" fill="#555">total=1324.4 ms · 552 unique stacks · 20 profiled steps</text>
+<text x="750" y="55" text-anchor="middle" font-size="10" fill="#888">n_items=27279  max_len=200  (wider = more time)</text>
+<g>
+  <title>(no cpu parent) | 218.28 ms (16.5%)</title>
+  <rect x="0.0" y="60" width="246.4" height="19" fill="rgb(82,66,211)" stroke="white" stroke-width="0.4"/>
+  <text x="3.0" y="75" font-size="11" fill="#111">(no cpu parent)</text>
+</g>
+<g>
+  <title>aten::convolution_backward | 181.06 ms (13.7%)</title>
+  <rect x="247.2" y="60" width="204.3" height="19" fill="rgb(79,78,205)" stroke="white" stroke-width="0.4"/>
+  <text x="250.2" y="75" font-size="11" fill="#111">aten::convolution_backward</text>
+</g>
+<g>
+  <title>aten::sum | 134.01 ms (10.1%)</title>
+  <rect x="452.3" y="60" width="151.0" height="19" fill="rgb(89,124,204)" stroke="white" stroke-width="0.4"/>
+  <text x="455.3" y="75" font-size="11" fill="#111">aten::sum</text>
+</g>
+<g>
+  <title>aten::copy_ | 133.96 ms (10.1%)</title>
+  <rect x="604.1" y="60" width="150.9" height="19" fill="rgb(56,117,176)" stroke="white" stroke-width="0.4"/>
+  <text x="607.1" y="75" font-size="11" fill="#111">aten::copy_</text>
+</g>
+<g>
+  <title>aten::add_ | 100.05 ms (7.6%)</title>
+  <rect x="755.8" y="60" width="112.5" height="19" fill="rgb(82,54,183)" stroke="white" stroke-width="0.4"/>
+  <text x="758.8" y="75" font-size="11" fill="#111">aten::add_</text>
+</g>
+<g>
+  <title>aten::cudnn_convolution | 62.69 ms (4.7%)</title>
+  <rect x="869.1" y="60" width="70.2" height="19" fill="rgb(65,85,215)" stroke="white" stroke-width="0.4"/>
+  <text x="872.1" y="75" font-size="11" fill="#111">aten::cudn</text>
+</g>
+<g>
+  <title>aten::mul | 61.45 ms (4.6%)</title>
+  <rect x="940.1" y="60" width="68.8" height="19" fill="rgb(63,66,187)" stroke="white" stroke-width="0.4"/>
+  <text x="943.1" y="75" font-size="11" fill="#111">aten::mul</text>
+</g>
+<g>
+  <title>aten::native_layer_norm_backward | 46.04 ms (3.5%)</title>
+  <rect x="1009.7" y="60" width="51.3" height="19" fill="rgb(122,50,198)" stroke="white" stroke-width="0.4"/>
+  <text x="1012.7" y="75" font-size="11" fill="#111">aten::n</text>
+</g>
+<g>
+  <title>aten::embedding_dense_backward | 36.66 ms (2.8%)</title>
+  <rect x="1061.8" y="60" width="40.7" height="19" fill="rgb(89,99,200)" stroke="white" stroke-width="0.4"/>
+  <text x="1064.8" y="75" font-size="11" fill="#111">aten:</text>
+</g>
+<g>
+  <title>aten::_index_put_impl_ | 35.58 ms (2.7%)</title>
+  <rect x="1103.3" y="60" width="39.5" height="19" fill="rgb(52,87,191)" stroke="white" stroke-width="0.4"/>
+  <text x="1106.3" y="75" font-size="11" fill="#111">aten:</text>
+</g>
+<g>
+  <title>aten::fill_ | 35.42 ms (2.7%)</title>
+  <rect x="1143.6" y="60" width="39.3" height="19" fill="rgb(111,45,181)" stroke="white" stroke-width="0.4"/>
+  <text x="1146.6" y="75" font-size="11" fill="#111">aten:</text>
+</g>
+<g>
+  <title>aten::_foreach_addcdiv_ | 23.98 ms (1.8%)</title>
+  <rect x="1183.7" y="60" width="26.4" height="19" fill="rgb(53,93,188)" stroke="white" stroke-width="0.4"/>
+  <text x="1186.7" y="75" font-size="11" fill="#111">ate</text>
+</g>
+<g>
+  <title>aten::cat | 22.43 ms (1.7%)</title>
+  <rect x="1210.9" y="60" width="24.6" height="19" fill="rgb(110,51,194)" stroke="white" stroke-width="0.4"/>
+  <text x="1213.9" y="75" font-size="11" fill="#111">ate</text>
+</g>
+<g>
+  <title>aten::add | 19.82 ms (1.5%)</title>
+  <rect x="1236.3" y="60" width="21.6" height="19" fill="rgb(99,162,205)" stroke="white" stroke-width="0.4"/>
+  <text x="1239.3" y="75" font-size="11" fill="#111">ate</text>
+</g>
+<g>
+  <title>aten::sigmoid_backward | 17.49 ms (1.3%)</title>
+  <rect x="1258.7" y="60" width="19.0" height="19" fill="rgb(128,82,181)" stroke="white" stroke-width="0.4"/>
+  <text x="1261.7" y="75" font-size="11" fill="#111">at</text>
+</g>
+<g>
+  <title>aten::native_layer_norm | 15.88 ms (1.2%)</title>
+  <rect x="1278.6" y="60" width="17.2" height="19" fill="rgb(88,57,170)" stroke="white" stroke-width="0.4"/>
+  <text x="1281.6" y="75" font-size="11" fill="#111">at</text>
+</g>
+<g>
+  <title>aten::sigmoid | 13.49 ms (1.0%)</title>
+  <rect x="1296.5" y="60" width="14.5" height="19" fill="rgb(103,65,174)" stroke="white" stroke-width="0.4"/>
+  <text x="1299.5" y="75" font-size="11" fill="#111">at</text>
+</g>
+<g>
+  <title>autograd::engine::evaluate_function: ConstantPadNdBackward0 | 13.39 ms (1.0%)</title>
+  <rect x="1311.8" y="60" width="14.4" height="19" fill="rgb(81,148,186)" stroke="white" stroke-width="0.4"/>
+  <text x="1314.8" y="75" font-size="11" fill="#111">au</text>
+</g>
+<g>
+  <title>aten::empty | 12.32 ms (0.9%)</title>
+  <rect x="1327.0" y="60" width="13.2" height="19" fill="rgb(113,71,191)" stroke="white" stroke-width="0.4"/>
+  <text x="1330.0" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::narrow | 11.44 ms (0.9%)</title>
+  <rect x="1340.9" y="60" width="12.2" height="19" fill="rgb(68,72,204)" stroke="white" stroke-width="0.4"/>
+  <text x="1343.9" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::empty_strided | 11.16 ms (0.8%)</title>
+  <rect x="1353.9" y="60" width="11.8" height="19" fill="rgb(60,121,197)" stroke="white" stroke-width="0.4"/>
+  <text x="1356.9" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::div_ | 8.34 ms (0.6%)</title>
+  <rect x="1366.5" y="60" width="8.6" height="19" fill="rgb(77,50,198)" stroke="white" stroke-width="0.4"/>
+  <text x="1369.5" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::split | 8.26 ms (0.6%)</title>
+  <rect x="1376.0" y="60" width="8.6" height="19" fill="rgb(107,79,201)" stroke="white" stroke-width="0.4"/>
+  <text x="1379.0" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::_foreach_add_ | 7.96 ms (0.6%)</title>
+  <rect x="1385.3" y="60" width="8.2" height="19" fill="rgb(108,87,215)" stroke="white" stroke-width="0.4"/>
+  <text x="1388.3" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::arange | 7.20 ms (0.5%)</title>
+  <rect x="1394.3" y="60" width="7.4" height="19" fill="rgb(54,65,183)" stroke="white" stroke-width="0.4"/>
+  <text x="1397.3" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::bmm | 5.62 ms (0.4%)</title>
+  <rect x="1402.5" y="60" width="5.6" height="19" fill="rgb(82,138,168)" stroke="white" stroke-width="0.4"/>
+  <text x="1405.5" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::clone | 4.99 ms (0.4%)</title>
+  <rect x="1408.9" y="60" width="4.9" height="19" fill="rgb(99,169,199)" stroke="white" stroke-width="0.4"/>
+  <text x="1411.9" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::_foreach_div_ | 4.76 ms (0.4%)</title>
+  <rect x="1414.5" y="60" width="4.6" height="19" fill="rgb(67,144,208)" stroke="white" stroke-width="0.4"/>
+  <text x="1417.5" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::as_strided | 4.58 ms (0.3%)</title>
+  <rect x="1419.9" y="60" width="4.4" height="19" fill="rgb(72,108,187)" stroke="white" stroke-width="0.4"/>
+  <text x="1422.9" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::slice | 4.43 ms (0.3%)</title>
+  <rect x="1425.1" y="60" width="4.2" height="19" fill="rgb(91,149,188)" stroke="white" stroke-width="0.4"/>
+  <text x="1428.1" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::empty_like | 4.19 ms (0.3%)</title>
+  <rect x="1430.1" y="60" width="3.9" height="19" fill="rgb(114,82,174)" stroke="white" stroke-width="0.4"/>
+  <text x="1433.1" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::view | 3.99 ms (0.3%)</title>
+  <rect x="1434.9" y="60" width="3.7" height="19" fill="rgb(63,143,185)" stroke="white" stroke-width="0.4"/>
+  <text x="1437.9" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>autograd::engine::evaluate_function: ConvolutionBackward0 | 3.32 ms (0.3%)</title>
+  <rect x="1439.4" y="60" width="3.0" height="19" fill="rgb(90,65,215)" stroke="white" stroke-width="0.4"/>
+  <text x="1442.4" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::div | 3.24 ms (0.2%)</title>
+  <rect x="1443.1" y="60" width="2.9" height="19" fill="rgb(76,135,215)" stroke="white" stroke-width="0.4"/>
+  <text x="1446.1" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>autograd::engine::evaluate_function: NativeLayerNormBackward0 | 3.01 ms (0.2%)</title>
+  <rect x="1446.8" y="60" width="2.6" height="19" fill="rgb(82,130,176)" stroke="white" stroke-width="0.4"/>
+  <text x="1449.8" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::chunk | 2.10 ms (0.2%)</title>
+  <rect x="1450.2" y="60" width="1.6" height="19" fill="rgb(81,141,191)" stroke="white" stroke-width="0.4"/>
+  <text x="1453.2" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>autograd::engine::evaluate_function: torch::autograd::AccumulateGrad | 2.03 ms (0.2%)</title>
+  <rect x="1452.6" y="60" width="1.5" height="19" fill="rgb(84,71,194)" stroke="white" stroke-width="0.4"/>
+  <text x="1455.6" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::remainder | 1.97 ms (0.1%)</title>
+  <rect x="1454.9" y="60" width="1.4" height="19" fill="rgb(49,130,165)" stroke="white" stroke-width="0.4"/>
+  <text x="1457.9" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::ne | 1.95 ms (0.1%)</title>
+  <rect x="1457.1" y="60" width="1.4" height="19" fill="rgb(74,130,173)" stroke="white" stroke-width="0.4"/>
+  <text x="1460.1" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::item | 1.93 ms (0.1%)</title>
+  <rect x="1459.3" y="60" width="1.4" height="19" fill="rgb(78,112,207)" stroke="white" stroke-width="0.4"/>
+  <text x="1462.3" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::mean | 1.82 ms (0.1%)</title>
+  <rect x="1461.5" y="60" width="1.3" height="19" fill="rgb(84,78,208)" stroke="white" stroke-width="0.4"/>
+  <text x="1464.5" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::index | 1.56 ms (0.1%)</title>
+  <rect x="1463.6" y="60" width="1.0" height="19" fill="rgb(56,85,211)" stroke="white" stroke-width="0.4"/>
+  <text x="1466.6" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>autograd::engine::evaluate_function: AddBackward0 | 1.48 ms (0.1%)</title>
+  <rect x="1465.4" y="60" width="0.9" height="19" fill="rgb(69,76,202)" stroke="white" stroke-width="0.4"/>
+  <text x="1468.4" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>ConstantPadNdBackward0 | 1.46 ms (0.1%)</title>
+  <rect x="1467.0" y="60" width="0.9" height="19" fill="rgb(61,52,192)" stroke="white" stroke-width="0.4"/>
+  <text x="1470.0" y="75" font-size="11" fill="#111">C</text>
+</g>
+<g>
+  <title>aten::_foreach_sqrt | 1.40 ms (0.1%)</title>
+  <rect x="1468.7" y="60" width="0.8" height="19" fill="rgb(63,147,182)" stroke="white" stroke-width="0.4"/>
+  <text x="1471.7" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>autograd::engine::evaluate_function: TransposeBackward0 | 1.36 ms (0.1%)</title>
+  <rect x="1470.3" y="60" width="0.7" height="19" fill="rgb(68,108,205)" stroke="white" stroke-width="0.4"/>
+  <text x="1473.3" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::_foreach_addcmul_ | 1.32 ms (0.1%)</title>
+  <rect x="1471.8" y="60" width="0.7" height="19" fill="rgb(127,60,198)" stroke="white" stroke-width="0.4"/>
+  <text x="1474.8" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>autograd::engine::evaluate_function: SplitBackward0 | 1.29 ms (0.1%)</title>
+  <rect x="1473.3" y="60" width="0.7" height="19" fill="rgb(48,83,172)" stroke="white" stroke-width="0.4"/>
+  <text x="1476.3" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::constant_pad_nd | 1.28 ms (0.1%)</title>
+  <rect x="1474.8" y="60" width="0.6" height="19" fill="rgb(84,54,215)" stroke="white" stroke-width="0.4"/>
+  <text x="1477.8" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>autograd::engine::evaluate_function: EmbeddingBackward0 | 1.27 ms (0.1%)</title>
+  <rect x="1476.2" y="60" width="0.6" height="19" fill="rgb(59,113,200)" stroke="white" stroke-width="0.4"/>
+  <text x="1479.2" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::einsum | 1.25 ms (0.1%)</title>
+  <rect x="1477.7" y="60" width="0.6" height="19" fill="rgb(56,119,175)" stroke="white" stroke-width="0.4"/>
+  <text x="1480.7" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>autograd::engine::evaluate_function: MulBackward0 | 1.18 ms (0.1%)</title>
+  <rect x="1479.1" y="60" width="0.5" height="19" fill="rgb(138,65,215)" stroke="white" stroke-width="0.4"/>
+  <text x="1482.1" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>detach | 1.16 ms (0.1%)</title>
+  <rect x="1480.4" y="60" width="0.5" height="19" fill="rgb(81,108,191)" stroke="white" stroke-width="0.4"/>
+  <text x="1483.4" y="75" font-size="11" fill="#111">d</text>
+</g>
+<g>
+  <title>aten::_foreach_mul_ | 1.16 ms (0.1%)</title>
+  <rect x="1481.7" y="60" width="0.5" height="19" fill="rgb(81,140,192)" stroke="white" stroke-width="0.4"/>
+  <text x="1484.7" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::transpose | 1.03 ms (0.1%)</title>
+  <rect x="1483.0" y="60" width="0.4" height="19" fill="rgb(52,87,191)" stroke="white" stroke-width="0.4"/>
+  <text x="1486.0" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::detach | 1.01 ms (0.1%)</title>
+  <rect x="1484.2" y="60" width="0.3" height="19" fill="rgb(72,75,187)" stroke="white" stroke-width="0.4"/>
+  <text x="1487.2" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::_foreach_lerp_ | 0.89 ms (0.1%)</title>
+  <rect x="1485.3" y="60" width="0.2" height="19" fill="rgb(97,113,215)" stroke="white" stroke-width="0.4"/>
+  <text x="1488.3" y="75" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>void at::native::elementwise_kernel&lt;128, 2, at::nati… | 56.45 ms (4.3%)</title>
+  <rect x="0.0" y="80" width="63.1" height="19" fill="rgb(62,139,187)" stroke="white" stroke-width="0.4"/>
+  <text x="3.0" y="95" font-size="11" fill="#111">void at::</text>
+</g>
+<g>
+  <title>sm80_xmma_wgrad_implicit_gemm_indexed_tf32f32_tf32f3… | 37.68 ms (2.8%)</title>
+  <rect x="63.9" y="80" width="41.9" height="19" fill="rgb(109,61,192)" stroke="white" stroke-width="0.4"/>
+  <text x="66.9" y="95" font-size="11" fill="#111">sm80_x</text>
+</g>
+<g>
+  <title>void at::native::index_elementwise_kernel&lt;128, 4, at… | 30.51 ms (2.3%)</title>
+  <rect x="106.6" y="80" width="33.8" height="19" fill="rgb(94,90,190)" stroke="white" stroke-width="0.4"/>
+  <text x="109.6" y="95" font-size="11" fill="#111">void</text>
+</g>
+<g>
+  <title>void gemmk1_kernel&lt;int, float, 256, 5, false, false,… | 20.27 ms (1.5%)</title>
+  <rect x="141.2" y="80" width="22.2" height="19" fill="rgb(72,75,187)" stroke="white" stroke-width="0.4"/>
+  <text x="144.2" y="95" font-size="11" fill="#111">voi</text>
+</g>
+<g>
+  <title>void at::native::(anonymous namespace)::GammaBetaBac… | 11.45 ms (0.9%)</title>
+  <rect x="164.1" y="80" width="12.2" height="19" fill="rgb(74,107,168)" stroke="white" stroke-width="0.4"/>
+  <text x="167.1" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void cudnn::engines_precompiled::nchwToNhwcKernel&lt;fl… | 8.48 ms (0.6%)</title>
+  <rect x="177.1" y="80" width="8.8" height="19" fill="rgb(65,99,170)" stroke="white" stroke-width="0.4"/>
+  <text x="180.1" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::reduce_kernel&lt;128, 4, at::native::R… | 7.38 ms (0.6%)</title>
+  <rect x="186.7" y="80" width="7.6" height="19" fill="rgb(71,136,192)" stroke="white" stroke-width="0.4"/>
+  <text x="189.7" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>sm80_xmma_fprop_implicit_gemm_tf32f32_tf32f32_f32_nh… | 7.19 ms (0.5%)</title>
+  <rect x="195.1" y="80" width="7.3" height="19" fill="rgb(78,112,207)" stroke="white" stroke-width="0.4"/>
+  <text x="198.1" y="95" font-size="11" fill="#111">s</text>
+</g>
+<g>
+  <title>void at::native::(anonymous namespace)::vectorized_l… | 6.20 ms (0.5%)</title>
+  <rect x="203.2" y="80" width="6.2" height="19" fill="rgb(61,129,192)" stroke="white" stroke-width="0.4"/>
+  <text x="206.2" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void (anonymous namespace)::indexing_backward_kernel… | 5.76 ms (0.4%)</title>
+  <rect x="210.2" y="80" width="5.7" height="19" fill="rgb(47,117,174)" stroke="white" stroke-width="0.4"/>
+  <text x="213.2" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::vectorized_elementwise_kernel&lt;4, at… | 4.67 ms (0.4%)</title>
+  <rect x="216.7" y="80" width="4.5" height="19" fill="rgb(69,160,199)" stroke="white" stroke-width="0.4"/>
+  <text x="219.7" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::(anonymous namespace)::CatArrayBatc… | 4.17 ms (0.3%)</title>
+  <rect x="222.0" y="80" width="3.9" height="19" fill="rgb(146,98,212)" stroke="white" stroke-width="0.4"/>
+  <text x="225.0" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::(anonymous namespace)::layer_norm_g… | 3.90 ms (0.3%)</title>
+  <rect x="226.8" y="80" width="3.6" height="19" fill="rgb(79,119,204)" stroke="white" stroke-width="0.4"/>
+  <text x="229.8" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void cutlass__5x_cudnn::Kernel&lt;cutlass_tensorop_s168… | 3.66 ms (0.3%)</title>
+  <rect x="231.2" y="80" width="3.3" height="19" fill="rgb(110,55,179)" stroke="white" stroke-width="0.4"/>
+  <text x="234.2" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>std::enable_if&lt;!(false), void&gt;::type internal::gemvx… | 3.21 ms (0.2%)</title>
+  <rect x="235.3" y="80" width="2.8" height="19" fill="rgb(57,99,166)" stroke="white" stroke-width="0.4"/>
+  <text x="238.3" y="95" font-size="11" fill="#111">s</text>
+</g>
+<g>
+  <title>void gemv2N_kernel&lt;int, int, float, float, float, fl… | 2.11 ms (0.2%)</title>
+  <rect x="239.0" y="80" width="1.6" height="19" fill="rgb(128,82,181)" stroke="white" stroke-width="0.4"/>
+  <text x="242.0" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::(anonymous namespace)::multi_tensor… | 1.60 ms (0.1%)</title>
+  <rect x="241.3" y="80" width="1.0" height="19" fill="rgb(54,104,183)" stroke="white" stroke-width="0.4"/>
+  <text x="244.3" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void cudnn::engines_precompiled::nhwcToNchwKernel&lt;fl… | 1.21 ms (0.1%)</title>
+  <rect x="243.2" y="80" width="0.6" height="19" fill="rgb(53,95,187)" stroke="white" stroke-width="0.4"/>
+  <text x="246.2" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::elementwise_kernel&lt;128, 2, at::nati… | 52.53 ms (4.0%)</title>
+  <rect x="247.2" y="80" width="58.7" height="19" fill="rgb(62,139,187)" stroke="white" stroke-width="0.4"/>
+  <text x="250.2" y="95" font-size="11" fill="#111">void at:</text>
+</g>
+<g>
+  <title>void at::native::(anonymous namespace)::GammaBetaBac… | 47.37 ms (3.6%)</title>
+  <rect x="306.7" y="80" width="52.8" height="19" fill="rgb(74,107,168)" stroke="white" stroke-width="0.4"/>
+  <text x="309.7" y="95" font-size="11" fill="#111">void at</text>
+</g>
+<g>
+  <title>void cudnn::engines_precompiled::nchwToNhwcKernel&lt;fl… | 17.15 ms (1.3%)</title>
+  <rect x="360.4" y="80" width="18.6" height="19" fill="rgb(65,99,170)" stroke="white" stroke-width="0.4"/>
+  <text x="363.4" y="95" font-size="11" fill="#111">vo</text>
+</g>
+<g>
+  <title>void cutlass__5x_cudnn::Kernel&lt;cutlass_tensorop_s168… | 15.62 ms (1.2%)</title>
+  <rect x="379.8" y="80" width="16.9" height="19" fill="rgb(110,55,179)" stroke="white" stroke-width="0.4"/>
+  <text x="382.8" y="95" font-size="11" fill="#111">vo</text>
+</g>
+<g>
+  <title>void at::native::(anonymous namespace)::layer_norm_g… | 15.40 ms (1.2%)</title>
+  <rect x="397.5" y="80" width="16.6" height="19" fill="rgb(79,119,204)" stroke="white" stroke-width="0.4"/>
+  <text x="400.5" y="95" font-size="11" fill="#111">vo</text>
+</g>
+<g>
+  <title>void at::native::(anonymous namespace)::vectorized_l… | 13.76 ms (1.0%)</title>
+  <rect x="414.9" y="80" width="14.8" height="19" fill="rgb(61,129,192)" stroke="white" stroke-width="0.4"/>
+  <text x="417.9" y="95" font-size="11" fill="#111">vo</text>
+</g>
+<g>
+  <title>sm80_xmma_fprop_implicit_gemm_tf32f32_tf32f32_f32_nh… | 12.04 ms (0.9%)</title>
+  <rect x="430.5" y="80" width="12.8" height="19" fill="rgb(78,112,207)" stroke="white" stroke-width="0.4"/>
+  <text x="433.5" y="95" font-size="11" fill="#111">s</text>
+</g>
+<g>
+  <title>void cudnn::engines_precompiled::nhwcToNchwKernel&lt;fl… | 4.61 ms (0.3%)</title>
+  <rect x="444.1" y="80" width="4.4" height="19" fill="rgb(53,95,187)" stroke="white" stroke-width="0.4"/>
+  <text x="447.1" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>sm80_xmma_wgrad_implicit_gemm_indexed_tf32f32_tf32f3… | 114.58 ms (8.7%)</title>
+  <rect x="452.3" y="80" width="129.0" height="19" fill="rgb(109,61,192)" stroke="white" stroke-width="0.4"/>
+  <text x="455.3" y="95" font-size="11" fill="#111">sm80_xmma_wgrad_im</text>
+</g>
+<g>
+  <title>void cudnn::engines_precompiled::nchwToNhwcKernel&lt;fl… | 9.23 ms (0.7%)</title>
+  <rect x="582.0" y="80" width="9.7" height="19" fill="rgb(65,99,170)" stroke="white" stroke-width="0.4"/>
+  <text x="585.0" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::elementwise_kernel&lt;128, 2, at::nati… | 6.67 ms (0.5%)</title>
+  <rect x="592.5" y="80" width="6.7" height="19" fill="rgb(62,139,187)" stroke="white" stroke-width="0.4"/>
+  <text x="595.5" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void cutlass__5x_cudnn::Kernel&lt;cutlass_tensorop_s168… | 1.87 ms (0.1%)</title>
+  <rect x="600.1" y="80" width="1.3" height="19" fill="rgb(110,55,179)" stroke="white" stroke-width="0.4"/>
+  <text x="603.1" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::vectorized_elementwise_kernel&lt;4, at… | 1.01 ms (0.1%)</title>
+  <rect x="602.2" y="80" width="0.3" height="19" fill="rgb(69,160,199)" stroke="white" stroke-width="0.4"/>
+  <text x="605.2" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::elementwise_kernel&lt;128, 2, at::nati… | 53.50 ms (4.0%)</title>
+  <rect x="604.1" y="80" width="59.8" height="19" fill="rgb(62,139,187)" stroke="white" stroke-width="0.4"/>
+  <text x="607.1" y="95" font-size="11" fill="#111">void at:</text>
+</g>
+<g>
+  <title>void (anonymous namespace)::indexing_backward_kernel… | 21.53 ms (1.6%)</title>
+  <rect x="664.6" y="80" width="23.6" height="19" fill="rgb(47,117,174)" stroke="white" stroke-width="0.4"/>
+  <text x="667.6" y="95" font-size="11" fill="#111">voi</text>
+</g>
+<g>
+  <title>void gemv2N_kernel&lt;int, int, float, float, float, fl… | 17.96 ms (1.4%)</title>
+  <rect x="689.0" y="80" width="19.5" height="19" fill="rgb(128,82,181)" stroke="white" stroke-width="0.4"/>
+  <text x="692.0" y="95" font-size="11" fill="#111">vo</text>
+</g>
+<g>
+  <title>void at::native::(anonymous namespace)::GammaBetaBac… | 12.77 ms (1.0%)</title>
+  <rect x="709.4" y="80" width="13.7" height="19" fill="rgb(74,107,168)" stroke="white" stroke-width="0.4"/>
+  <text x="712.4" y="95" font-size="11" fill="#111">vo</text>
+</g>
+<g>
+  <title>void at::native::(anonymous namespace)::vectorized_l… | 8.92 ms (0.7%)</title>
+  <rect x="723.8" y="80" width="9.3" height="19" fill="rgb(61,129,192)" stroke="white" stroke-width="0.4"/>
+  <text x="726.8" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::vectorized_elementwise_kernel&lt;4, at… | 5.46 ms (0.4%)</title>
+  <rect x="733.9" y="80" width="5.4" height="19" fill="rgb(69,160,199)" stroke="white" stroke-width="0.4"/>
+  <text x="736.9" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void cudnn::engines_precompiled::nchwToNhwcKernel&lt;fl… | 4.11 ms (0.3%)</title>
+  <rect x="740.1" y="80" width="3.9" height="19" fill="rgb(65,99,170)" stroke="white" stroke-width="0.4"/>
+  <text x="743.1" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::(anonymous namespace)::layer_norm_g… | 3.63 ms (0.3%)</title>
+  <rect x="744.8" y="80" width="3.3" height="19" fill="rgb(79,119,204)" stroke="white" stroke-width="0.4"/>
+  <text x="747.8" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void cudnn::engines_precompiled::nhwcToNchwKernel&lt;fl… | 1.90 ms (0.1%)</title>
+  <rect x="748.9" y="80" width="1.3" height="19" fill="rgb(53,95,187)" stroke="white" stroke-width="0.4"/>
+  <text x="751.9" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::(anonymous namespace)::CatArrayBatc… | 1.42 ms (0.1%)</title>
+  <rect x="751.0" y="80" width="0.8" height="19" fill="rgb(146,98,212)" stroke="white" stroke-width="0.4"/>
+  <text x="754.0" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::elementwise_kernel&lt;128, 2, at::nati… | 79.50 ms (6.0%)</title>
+  <rect x="755.8" y="80" width="89.2" height="19" fill="rgb(62,139,187)" stroke="white" stroke-width="0.4"/>
+  <text x="758.8" y="95" font-size="11" fill="#111">void at::nat</text>
+</g>
+<g>
+  <title>sm80_xmma_wgrad_implicit_gemm_indexed_tf32f32_tf32f3… | 13.63 ms (1.0%)</title>
+  <rect x="845.8" y="80" width="14.6" height="19" fill="rgb(109,61,192)" stroke="white" stroke-width="0.4"/>
+  <text x="848.8" y="95" font-size="11" fill="#111">sm</text>
+</g>
+<g>
+  <title>void cutlass__5x_cudnn::Kernel&lt;cutlass_tensorop_s168… | 3.63 ms (0.3%)</title>
+  <rect x="861.2" y="80" width="3.3" height="19" fill="rgb(110,55,179)" stroke="white" stroke-width="0.4"/>
+  <text x="864.2" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>sm80_xmma_fprop_implicit_gemm_tf32f32_tf32f32_f32_nh… | 1.17 ms (0.1%)</title>
+  <rect x="865.4" y="80" width="0.5" height="19" fill="rgb(78,112,207)" stroke="white" stroke-width="0.4"/>
+  <text x="868.4" y="95" font-size="11" fill="#111">s</text>
+</g>
+<g>
+  <title>void cudnn::engines_precompiled::nhwcToNchwKernel&lt;fl… | 1.08 ms (0.1%)</title>
+  <rect x="866.7" y="80" width="0.4" height="19" fill="rgb(53,95,187)" stroke="white" stroke-width="0.4"/>
+  <text x="869.7" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::elementwise_kernel&lt;128, 2, at::nati… | 23.07 ms (1.7%)</title>
+  <rect x="869.1" y="80" width="25.3" height="19" fill="rgb(62,139,187)" stroke="white" stroke-width="0.4"/>
+  <text x="872.1" y="95" font-size="11" fill="#111">voi</text>
+</g>
+<g>
+  <title>std::enable_if&lt;!(false), void&gt;::type internal::gemvx… | 18.19 ms (1.4%)</title>
+  <rect x="895.2" y="80" width="19.8" height="19" fill="rgb(57,99,166)" stroke="white" stroke-width="0.4"/>
+  <text x="898.2" y="95" font-size="11" fill="#111">st</text>
+</g>
+<g>
+  <title>void cudnn::engines_precompiled::nchwToNhwcKernel&lt;fl… | 5.61 ms (0.4%)</title>
+  <rect x="915.8" y="80" width="5.5" height="19" fill="rgb(65,99,170)" stroke="white" stroke-width="0.4"/>
+  <text x="918.8" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::(anonymous namespace)::GammaBetaBac… | 5.56 ms (0.4%)</title>
+  <rect x="922.2" y="80" width="5.5" height="19" fill="rgb(74,107,168)" stroke="white" stroke-width="0.4"/>
+  <text x="925.2" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void cutlass__5x_cudnn::Kernel&lt;cutlass_tensorop_s168… | 3.67 ms (0.3%)</title>
+  <rect x="928.5" y="80" width="3.4" height="19" fill="rgb(110,55,179)" stroke="white" stroke-width="0.4"/>
+  <text x="931.5" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at_cuda_detail::cub::DeviceRadixSortOnesweepKer… | 2.06 ms (0.2%)</title>
+  <rect x="932.6" y="80" width="1.5" height="19" fill="rgb(125,60,198)" stroke="white" stroke-width="0.4"/>
+  <text x="935.6" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::vectorized_elementwise_kernel&lt;4, at… | 1.72 ms (0.1%)</title>
+  <rect x="935.0" y="80" width="1.1" height="19" fill="rgb(69,160,199)" stroke="white" stroke-width="0.4"/>
+  <text x="938.0" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::(anonymous namespace)::layer_norm_g… | 1.56 ms (0.1%)</title>
+  <rect x="936.9" y="80" width="1.0" height="19" fill="rgb(79,119,204)" stroke="white" stroke-width="0.4"/>
+  <text x="939.9" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>sm80_xmma_wgrad_implicit_gemm_indexed_tf32f32_tf32f3… | 27.32 ms (2.1%)</title>
+  <rect x="940.1" y="80" width="30.1" height="19" fill="rgb(109,61,192)" stroke="white" stroke-width="0.4"/>
+  <text x="943.1" y="95" font-size="11" fill="#111">sm80</text>
+</g>
+<g>
+  <title>void at::native::elementwise_kernel&lt;128, 2, at::nati… | 21.95 ms (1.7%)</title>
+  <rect x="971.0" y="80" width="24.1" height="19" fill="rgb(62,139,187)" stroke="white" stroke-width="0.4"/>
+  <text x="974.0" y="95" font-size="11" fill="#111">voi</text>
+</g>
+<g>
+  <title>sm80_xmma_fprop_implicit_gemm_tf32f32_tf32f32_f32_nh… | 3.88 ms (0.3%)</title>
+  <rect x="995.9" y="80" width="3.6" height="19" fill="rgb(78,112,207)" stroke="white" stroke-width="0.4"/>
+  <text x="998.9" y="95" font-size="11" fill="#111">s</text>
+</g>
+<g>
+  <title>void at_cuda_detail::cub::DeviceRadixSortOnesweepKer… | 2.04 ms (0.2%)</title>
+  <rect x="1000.3" y="80" width="1.5" height="19" fill="rgb(125,60,198)" stroke="white" stroke-width="0.4"/>
+  <text x="1003.3" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::(anonymous namespace)::CatArrayBatc… | 1.90 ms (0.1%)</title>
+  <rect x="1002.6" y="80" width="1.3" height="19" fill="rgb(146,98,212)" stroke="white" stroke-width="0.4"/>
+  <text x="1005.6" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::(anonymous namespace)::layer_norm_g… | 1.82 ms (0.1%)</title>
+  <rect x="1004.8" y="80" width="1.3" height="19" fill="rgb(79,119,204)" stroke="white" stroke-width="0.4"/>
+  <text x="1007.8" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void cudnn::engines_precompiled::nchwToNhwcKernel&lt;fl… | 0.96 ms (0.1%)</title>
+  <rect x="1006.8" y="80" width="0.3" height="19" fill="rgb(65,99,170)" stroke="white" stroke-width="0.4"/>
+  <text x="1009.8" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::elementwise_kernel&lt;128, 2, at::nati… | 28.38 ms (2.1%)</title>
+  <rect x="1009.7" y="80" width="31.3" height="19" fill="rgb(62,139,187)" stroke="white" stroke-width="0.4"/>
+  <text x="1012.7" y="95" font-size="11" fill="#111">void</text>
+</g>
+<g>
+  <title>void at::native::(anonymous namespace)::CatArrayBatc… | 11.17 ms (0.8%)</title>
+  <rect x="1041.8" y="80" width="11.9" height="19" fill="rgb(146,98,212)" stroke="white" stroke-width="0.4"/>
+  <text x="1044.8" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::vectorized_elementwise_kernel&lt;4, at… | 3.61 ms (0.3%)</title>
+  <rect x="1054.5" y="80" width="3.3" height="19" fill="rgb(69,160,199)" stroke="white" stroke-width="0.4"/>
+  <text x="1057.5" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::reduce_kernel&lt;128, 4, at::native::R… | 1.68 ms (0.1%)</title>
+  <rect x="1058.6" y="80" width="1.1" height="19" fill="rgb(71,136,192)" stroke="white" stroke-width="0.4"/>
+  <text x="1061.6" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::elementwise_kernel&lt;128, 2, at::nati… | 20.85 ms (1.6%)</title>
+  <rect x="1061.8" y="80" width="22.8" height="19" fill="rgb(62,139,187)" stroke="white" stroke-width="0.4"/>
+  <text x="1064.8" y="95" font-size="11" fill="#111">voi</text>
+</g>
+<g>
+  <title>void at::native::(anonymous namespace)::vectorized_l… | 8.16 ms (0.6%)</title>
+  <rect x="1085.4" y="80" width="8.4" height="19" fill="rgb(61,129,192)" stroke="white" stroke-width="0.4"/>
+  <text x="1088.4" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>sm80_xmma_fprop_implicit_gemm_tf32f32_tf32f32_f32_nh… | 4.48 ms (0.3%)</title>
+  <rect x="1094.7" y="80" width="4.3" height="19" fill="rgb(78,112,207)" stroke="white" stroke-width="0.4"/>
+  <text x="1097.7" y="95" font-size="11" fill="#111">s</text>
+</g>
+<g>
+  <title>void at::native::vectorized_elementwise_kernel&lt;4, at… | 2.29 ms (0.2%)</title>
+  <rect x="1099.8" y="80" width="1.8" height="19" fill="rgb(69,160,199)" stroke="white" stroke-width="0.4"/>
+  <text x="1102.8" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>sm80_xmma_wgrad_implicit_gemm_indexed_tf32f32_tf32f3… | 13.63 ms (1.0%)</title>
+  <rect x="1103.3" y="80" width="14.6" height="19" fill="rgb(109,61,192)" stroke="white" stroke-width="0.4"/>
+  <text x="1106.3" y="95" font-size="11" fill="#111">sm</text>
+</g>
+<g>
+  <title>void at::native::(anonymous namespace)::GammaBetaBac… | 5.58 ms (0.4%)</title>
+  <rect x="1118.8" y="80" width="5.5" height="19" fill="rgb(74,107,168)" stroke="white" stroke-width="0.4"/>
+  <text x="1121.8" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void cudnn::engines_precompiled::nchwToNhwcKernel&lt;fl… | 5.22 ms (0.4%)</title>
+  <rect x="1125.1" y="80" width="5.1" height="19" fill="rgb(65,99,170)" stroke="white" stroke-width="0.4"/>
+  <text x="1128.1" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void cutlass__5x_cudnn::Kernel&lt;cutlass_tensorop_s168… | 3.43 ms (0.3%)</title>
+  <rect x="1131.0" y="80" width="3.1" height="19" fill="rgb(110,55,179)" stroke="white" stroke-width="0.4"/>
+  <text x="1134.0" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::elementwise_kernel&lt;128, 2, at::nati… | 2.97 ms (0.2%)</title>
+  <rect x="1134.9" y="80" width="2.6" height="19" fill="rgb(62,139,187)" stroke="white" stroke-width="0.4"/>
+  <text x="1137.9" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::(anonymous namespace)::layer_norm_g… | 1.81 ms (0.1%)</title>
+  <rect x="1138.3" y="80" width="1.3" height="19" fill="rgb(79,119,204)" stroke="white" stroke-width="0.4"/>
+  <text x="1141.3" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::reduce_kernel&lt;128, 4, at::native::R… | 1.57 ms (0.1%)</title>
+  <rect x="1140.3" y="80" width="1.0" height="19" fill="rgb(71,136,192)" stroke="white" stroke-width="0.4"/>
+  <text x="1143.3" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void cudnn::engines_precompiled::nhwcToNchwKernel&lt;fl… | 1.10 ms (0.1%)</title>
+  <rect x="1142.1" y="80" width="0.5" height="19" fill="rgb(53,95,187)" stroke="white" stroke-width="0.4"/>
+  <text x="1145.1" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>sm80_xmma_wgrad_implicit_gemm_indexed_tf32f32_tf32f3… | 14.40 ms (1.1%)</title>
+  <rect x="1143.6" y="80" width="15.5" height="19" fill="rgb(109,61,192)" stroke="white" stroke-width="0.4"/>
+  <text x="1146.6" y="95" font-size="11" fill="#111">sm</text>
+</g>
+<g>
+  <title>void at::native::(anonymous namespace)::GammaBetaBac… | 11.15 ms (0.8%)</title>
+  <rect x="1159.9" y="80" width="11.8" height="19" fill="rgb(74,107,168)" stroke="white" stroke-width="0.4"/>
+  <text x="1162.9" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::elementwise_kernel&lt;128, 2, at::nati… | 5.15 ms (0.4%)</title>
+  <rect x="1172.6" y="80" width="5.0" height="19" fill="rgb(62,139,187)" stroke="white" stroke-width="0.4"/>
+  <text x="1175.6" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::(anonymous namespace)::layer_norm_g… | 3.64 ms (0.3%)</title>
+  <rect x="1178.4" y="80" width="3.3" height="19" fill="rgb(79,119,204)" stroke="white" stroke-width="0.4"/>
+  <text x="1181.4" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::index_elementwise_kernel&lt;128, 4, at… | 23.56 ms (1.8%)</title>
+  <rect x="1183.7" y="80" width="25.9" height="19" fill="rgb(94,90,190)" stroke="white" stroke-width="0.4"/>
+  <text x="1186.7" y="95" font-size="11" fill="#111">voi</text>
+</g>
+<g>
+  <title>void at::native::elementwise_kernel&lt;128, 2, at::nati… | 16.82 ms (1.3%)</title>
+  <rect x="1210.9" y="80" width="18.2" height="19" fill="rgb(62,139,187)" stroke="white" stroke-width="0.4"/>
+  <text x="1213.9" y="95" font-size="11" fill="#111">vo</text>
+</g>
+<g>
+  <title>void at::native::(anonymous namespace)::vectorized_l… | 5.15 ms (0.4%)</title>
+  <rect x="1229.9" y="80" width="5.0" height="19" fill="rgb(61,129,192)" stroke="white" stroke-width="0.4"/>
+  <text x="1232.9" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::elementwise_kernel&lt;128, 2, at::nati… | 10.39 ms (0.8%)</title>
+  <rect x="1236.3" y="80" width="11.0" height="19" fill="rgb(62,139,187)" stroke="white" stroke-width="0.4"/>
+  <text x="1239.3" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::(anonymous namespace)::GammaBetaBac… | 5.56 ms (0.4%)</title>
+  <rect x="1248.1" y="80" width="5.5" height="19" fill="rgb(74,107,168)" stroke="white" stroke-width="0.4"/>
+  <text x="1251.1" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::(anonymous namespace)::layer_norm_g… | 3.64 ms (0.3%)</title>
+  <rect x="1254.4" y="80" width="3.3" height="19" fill="rgb(79,119,204)" stroke="white" stroke-width="0.4"/>
+  <text x="1257.4" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::elementwise_kernel&lt;128, 2, at::nati… | 16.89 ms (1.3%)</title>
+  <rect x="1258.7" y="80" width="18.3" height="19" fill="rgb(62,139,187)" stroke="white" stroke-width="0.4"/>
+  <text x="1261.7" y="95" font-size="11" fill="#111">vo</text>
+</g>
+<g>
+  <title>void at::native::elementwise_kernel&lt;128, 2, at::nati… | 8.23 ms (0.6%)</title>
+  <rect x="1278.6" y="80" width="8.5" height="19" fill="rgb(62,139,187)" stroke="white" stroke-width="0.4"/>
+  <text x="1281.6" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void cutlass__5x_cudnn::Kernel&lt;cutlass_tensorop_s168… | 1.60 ms (0.1%)</title>
+  <rect x="1287.9" y="80" width="1.0" height="19" fill="rgb(110,55,179)" stroke="white" stroke-width="0.4"/>
+  <text x="1290.9" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::vectorized_elementwise_kernel&lt;4, at… | 1.54 ms (0.1%)</title>
+  <rect x="1289.7" y="80" width="0.9" height="19" fill="rgb(69,160,199)" stroke="white" stroke-width="0.4"/>
+  <text x="1292.7" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::(anonymous namespace)::CatArrayBatc… | 1.43 ms (0.1%)</title>
+  <rect x="1291.4" y="80" width="0.8" height="19" fill="rgb(146,98,212)" stroke="white" stroke-width="0.4"/>
+  <text x="1294.4" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void cudnn::engines_precompiled::nchwToNhwcKernel&lt;fl… | 1.16 ms (0.1%)</title>
+  <rect x="1293.1" y="80" width="0.5" height="19" fill="rgb(65,99,170)" stroke="white" stroke-width="0.4"/>
+  <text x="1296.1" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::elementwise_kernel&lt;128, 2, at::nati… | 9.25 ms (0.7%)</title>
+  <rect x="1296.5" y="80" width="9.7" height="19" fill="rgb(62,139,187)" stroke="white" stroke-width="0.4"/>
+  <text x="1299.5" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void (anonymous namespace)::indexing_backward_kernel… | 1.74 ms (0.1%)</title>
+  <rect x="1307.0" y="80" width="1.2" height="19" fill="rgb(47,117,174)" stroke="white" stroke-width="0.4"/>
+  <text x="1310.0" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::(anonymous namespace)::CatArrayBatc… | 1.53 ms (0.1%)</title>
+  <rect x="1309.0" y="80" width="0.9" height="19" fill="rgb(146,98,212)" stroke="white" stroke-width="0.4"/>
+  <text x="1312.0" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::reduce_kernel&lt;128, 4, at::native::R… | 12.10 ms (0.9%)</title>
+  <rect x="1311.8" y="80" width="12.9" height="19" fill="rgb(71,136,192)" stroke="white" stroke-width="0.4"/>
+  <text x="1314.8" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::vectorized_elementwise_kernel&lt;4, at… | 1.95 ms (0.1%)</title>
+  <rect x="1327.0" y="80" width="1.4" height="19" fill="rgb(69,160,199)" stroke="white" stroke-width="0.4"/>
+  <text x="1330.0" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void (anonymous namespace)::indexing_backward_kernel… | 1.80 ms (0.1%)</title>
+  <rect x="1329.2" y="80" width="1.2" height="19" fill="rgb(47,117,174)" stroke="white" stroke-width="0.4"/>
+  <text x="1332.2" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::elementwise_kernel&lt;128, 2, at::nati… | 1.72 ms (0.1%)</title>
+  <rect x="1331.2" y="80" width="1.1" height="19" fill="rgb(62,139,187)" stroke="white" stroke-width="0.4"/>
+  <text x="1334.2" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::(anonymous namespace)::GammaBetaBac… | 1.61 ms (0.1%)</title>
+  <rect x="1333.2" y="80" width="1.0" height="19" fill="rgb(74,107,168)" stroke="white" stroke-width="0.4"/>
+  <text x="1336.2" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::(anonymous namespace)::CatArrayBatc… | 1.38 ms (0.1%)</title>
+  <rect x="1335.0" y="80" width="0.8" height="19" fill="rgb(146,98,212)" stroke="white" stroke-width="0.4"/>
+  <text x="1338.0" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::(anonymous namespace)::indexSelectL… | 1.00 ms (0.1%)</title>
+  <rect x="1336.6" y="80" width="0.3" height="19" fill="rgb(82,125,180)" stroke="white" stroke-width="0.4"/>
+  <text x="1339.6" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::(anonymous namespace)::vectorized_l… | 0.90 ms (0.1%)</title>
+  <rect x="1337.7" y="80" width="0.2" height="19" fill="rgb(61,129,192)" stroke="white" stroke-width="0.4"/>
+  <text x="1340.7" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>sm80_xmma_wgrad_implicit_gemm_indexed_tf32f32_tf32f3… | 8.88 ms (0.7%)</title>
+  <rect x="1340.9" y="80" width="9.3" height="19" fill="rgb(109,61,192)" stroke="white" stroke-width="0.4"/>
+  <text x="1343.9" y="95" font-size="11" fill="#111">s</text>
+</g>
+<g>
+  <title>void at::native::elementwise_kernel&lt;128, 2, at::nati… | 1.25 ms (0.1%)</title>
+  <rect x="1351.0" y="80" width="0.6" height="19" fill="rgb(62,139,187)" stroke="white" stroke-width="0.4"/>
+  <text x="1354.0" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::index_elementwise_kernel&lt;128, 4, at… | 3.41 ms (0.3%)</title>
+  <rect x="1353.9" y="80" width="3.1" height="19" fill="rgb(94,90,190)" stroke="white" stroke-width="0.4"/>
+  <text x="1356.9" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::(anonymous namespace)::vectorized_l… | 3.25 ms (0.2%)</title>
+  <rect x="1357.8" y="80" width="2.9" height="19" fill="rgb(61,129,192)" stroke="white" stroke-width="0.4"/>
+  <text x="1360.8" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::elementwise_kernel&lt;128, 2, at::nati… | 1.50 ms (0.1%)</title>
+  <rect x="1361.4" y="80" width="0.9" height="19" fill="rgb(62,139,187)" stroke="white" stroke-width="0.4"/>
+  <text x="1364.4" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void gemv2N_kernel&lt;int, int, float, float, float, fl… | 1.06 ms (0.1%)</title>
+  <rect x="1363.1" y="80" width="0.4" height="19" fill="rgb(128,82,181)" stroke="white" stroke-width="0.4"/>
+  <text x="1366.1" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::(anonymous namespace)::GammaBetaBac… | 5.24 ms (0.4%)</title>
+  <rect x="1366.5" y="80" width="5.1" height="19" fill="rgb(74,107,168)" stroke="white" stroke-width="0.4"/>
+  <text x="1369.5" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::elementwise_kernel&lt;128, 2, at::nati… | 2.93 ms (0.2%)</title>
+  <rect x="1372.5" y="80" width="2.5" height="19" fill="rgb(62,139,187)" stroke="white" stroke-width="0.4"/>
+  <text x="1375.5" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>sm80_xmma_wgrad_implicit_gemm_indexed_tf32f32_tf32f3… | 6.40 ms (0.5%)</title>
+  <rect x="1376.0" y="80" width="6.4" height="19" fill="rgb(109,61,192)" stroke="white" stroke-width="0.4"/>
+  <text x="1379.0" y="95" font-size="11" fill="#111">s</text>
+</g>
+<g>
+  <title>void at::native::(anonymous namespace)::CatArrayBatc… | 0.94 ms (0.1%)</title>
+  <rect x="1383.2" y="80" width="0.3" height="19" fill="rgb(146,98,212)" stroke="white" stroke-width="0.4"/>
+  <text x="1386.2" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::index_elementwise_kernel&lt;128, 4, at… | 6.82 ms (0.5%)</title>
+  <rect x="1385.3" y="80" width="6.9" height="19" fill="rgb(94,90,190)" stroke="white" stroke-width="0.4"/>
+  <text x="1388.3" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::elementwise_kernel&lt;128, 2, at::nati… | 5.45 ms (0.4%)</title>
+  <rect x="1394.3" y="80" width="5.4" height="19" fill="rgb(62,139,187)" stroke="white" stroke-width="0.4"/>
+  <text x="1397.3" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>sm80_xmma_fprop_implicit_gemm_tf32f32_tf32f32_f32_nh… | 1.65 ms (0.1%)</title>
+  <rect x="1400.5" y="80" width="1.1" height="19" fill="rgb(78,112,207)" stroke="white" stroke-width="0.4"/>
+  <text x="1403.5" y="95" font-size="11" fill="#111">s</text>
+</g>
+<g>
+  <title>sm80_xmma_wgrad_implicit_gemm_indexed_tf32f32_tf32f3… | 4.83 ms (0.4%)</title>
+  <rect x="1402.5" y="80" width="4.7" height="19" fill="rgb(109,61,192)" stroke="white" stroke-width="0.4"/>
+  <text x="1405.5" y="95" font-size="11" fill="#111">s</text>
+</g>
+<g>
+  <title>void (anonymous namespace)::indexing_backward_kernel… | 1.77 ms (0.1%)</title>
+  <rect x="1408.9" y="80" width="1.2" height="19" fill="rgb(47,117,174)" stroke="white" stroke-width="0.4"/>
+  <text x="1411.9" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::(anonymous namespace)::GammaBetaBac… | 1.27 ms (0.1%)</title>
+  <rect x="1410.9" y="80" width="0.6" height="19" fill="rgb(74,107,168)" stroke="white" stroke-width="0.4"/>
+  <text x="1413.9" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::index_elementwise_kernel&lt;128, 4, at… | 3.71 ms (0.3%)</title>
+  <rect x="1414.5" y="80" width="3.4" height="19" fill="rgb(94,90,190)" stroke="white" stroke-width="0.4"/>
+  <text x="1417.5" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::reduce_kernel&lt;128, 4, at::native::R… | 1.97 ms (0.1%)</title>
+  <rect x="1419.9" y="80" width="1.4" height="19" fill="rgb(71,136,192)" stroke="white" stroke-width="0.4"/>
+  <text x="1422.9" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>sm80_xmma_wgrad_implicit_gemm_indexed_tf32f32_tf32f3… | 2.42 ms (0.2%)</title>
+  <rect x="1425.1" y="80" width="1.9" height="19" fill="rgb(109,61,192)" stroke="white" stroke-width="0.4"/>
+  <text x="1428.1" y="95" font-size="11" fill="#111">s</text>
+</g>
+<g>
+  <title>void (anonymous namespace)::indexing_backward_kernel… | 3.57 ms (0.3%)</title>
+  <rect x="1430.1" y="80" width="3.2" height="19" fill="rgb(47,117,174)" stroke="white" stroke-width="0.4"/>
+  <text x="1433.1" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>sm80_xmma_wgrad_implicit_gemm_indexed_tf32f32_tf32f3… | 3.21 ms (0.2%)</title>
+  <rect x="1434.9" y="80" width="2.8" height="19" fill="rgb(109,61,192)" stroke="white" stroke-width="0.4"/>
+  <text x="1437.9" y="95" font-size="11" fill="#111">s</text>
+</g>
+<g>
+  <title>void at::native::elementwise_kernel&lt;128, 2, at::nati… | 2.96 ms (0.2%)</title>
+  <rect x="1439.4" y="80" width="2.6" height="19" fill="rgb(62,139,187)" stroke="white" stroke-width="0.4"/>
+  <text x="1442.4" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::elementwise_kernel&lt;128, 2, at::nati… | 2.38 ms (0.2%)</title>
+  <rect x="1446.8" y="80" width="1.9" height="19" fill="rgb(62,139,187)" stroke="white" stroke-width="0.4"/>
+  <text x="1449.8" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>sm80_xmma_wgrad_implicit_gemm_indexed_tf32f32_tf32f3… | 1.60 ms (0.1%)</title>
+  <rect x="1450.2" y="80" width="1.0" height="19" fill="rgb(109,61,192)" stroke="white" stroke-width="0.4"/>
+  <text x="1453.2" y="95" font-size="11" fill="#111">s</text>
+</g>
+<g>
+  <title>void at::native::elementwise_kernel&lt;128, 2, at::nati… | 1.21 ms (0.1%)</title>
+  <rect x="1452.6" y="80" width="0.6" height="19" fill="rgb(62,139,187)" stroke="white" stroke-width="0.4"/>
+  <text x="1455.6" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::elementwise_kernel&lt;128, 2, at::nati… | 1.65 ms (0.1%)</title>
+  <rect x="1454.9" y="80" width="1.1" height="19" fill="rgb(62,139,187)" stroke="white" stroke-width="0.4"/>
+  <text x="1457.9" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>sm80_xmma_wgrad_implicit_gemm_indexed_tf32f32_tf32f3… | 1.62 ms (0.1%)</title>
+  <rect x="1457.1" y="80" width="1.0" height="19" fill="rgb(109,61,192)" stroke="white" stroke-width="0.4"/>
+  <text x="1460.1" y="95" font-size="11" fill="#111">s</text>
+</g>
+<g>
+  <title>void at::native::elementwise_kernel&lt;128, 2, at::nati… | 1.35 ms (0.1%)</title>
+  <rect x="1459.3" y="80" width="0.7" height="19" fill="rgb(62,139,187)" stroke="white" stroke-width="0.4"/>
+  <text x="1462.3" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::reduce_kernel&lt;128, 4, at::native::R… | 1.62 ms (0.1%)</title>
+  <rect x="1461.5" y="80" width="1.0" height="19" fill="rgb(71,136,192)" stroke="white" stroke-width="0.4"/>
+  <text x="1464.5" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void cudnn::engines_precompiled::nchwToNhwcKernel&lt;fl… | 1.03 ms (0.1%)</title>
+  <rect x="1463.6" y="80" width="0.4" height="19" fill="rgb(65,99,170)" stroke="white" stroke-width="0.4"/>
+  <text x="1466.6" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::reduce_kernel&lt;128, 4, at::native::R… | 1.11 ms (0.1%)</title>
+  <rect x="1467.0" y="80" width="0.5" height="19" fill="rgb(71,136,192)" stroke="white" stroke-width="0.4"/>
+  <text x="1470.0" y="95" font-size="11" fill="#111">v</text>
+</g>
+<g>
+  <title>void at::native::elementwise_kernel&lt;128, 2, at::nati… | 1.21 ms (0.1%)</title>
+  <rect x="1476.2" y="80" width="0.6" height="19" fill="rgb(62,139,187)" stroke="white" stroke-width="0.4"/>
+  <text x="1479.2" y="95" font-size="11" fill="#111">v</text>
+</g>
+</svg>

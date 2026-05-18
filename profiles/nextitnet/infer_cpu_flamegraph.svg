@@ -1,0 +1,187 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="232">
+<style>text{font-family:monospace;pointer-events:none}rect{cursor:default}rect:hover{stroke:#111;stroke-width:1.5}</style>
+<rect width="1500" height="232" fill="#f9f9f9"/>
+<text x="750" y="22" text-anchor="middle" font-size="15" font-weight="bold" fill="#222">nextitnet · infer · CPU ops</text>
+<text x="750" y="40" text-anchor="middle" font-size="11" fill="#555">total=717.8 ms · 56 unique stacks · 20 profiled steps</text>
+<text x="750" y="55" text-anchor="middle" font-size="10" fill="#888">n_items=27279  max_len=200  (wider = more time)</text>
+<g>
+  <title>nextitnet.infer | 717.82 ms (100.0%)</title>
+  <rect x="0.0" y="60" width="1499.2" height="19" fill="rgb(233,131,63)" stroke="white" stroke-width="0.4"/>
+  <text x="3.0" y="75" font-size="11" fill="#111">nextitnet.infer</text>
+</g>
+<g>
+  <title>aten::conv1d | 332.66 ms (46.3%)</title>
+  <rect x="0.0" y="80" width="694.3" height="19" fill="rgb(246,214,97)" stroke="white" stroke-width="0.4"/>
+  <text x="3.0" y="95" font-size="11" fill="#111">aten::conv1d</text>
+</g>
+<g>
+  <title>aten::pad | 86.46 ms (12.0%)</title>
+  <rect x="695.1" y="80" width="179.9" height="19" fill="rgb(226,167,73)" stroke="white" stroke-width="0.4"/>
+  <text x="698.1" y="95" font-size="11" fill="#111">aten::pad</text>
+</g>
+<g>
+  <title>aten::layer_norm | 74.65 ms (10.4%)</title>
+  <rect x="875.8" y="80" width="155.2" height="19" fill="rgb(247,177,55)" stroke="white" stroke-width="0.4"/>
+  <text x="878.8" y="95" font-size="11" fill="#111">aten::layer_norm</text>
+</g>
+<g>
+  <title>aten::chunk | 9.91 ms (1.4%)</title>
+  <rect x="1031.8" y="80" width="19.9" height="19" fill="rgb(229,143,57)" stroke="white" stroke-width="0.4"/>
+  <text x="1034.8" y="95" font-size="11" fill="#111">at</text>
+</g>
+<g>
+  <title>aten::sigmoid | 6.76 ms (0.9%)</title>
+  <rect x="1052.5" y="80" width="13.3" height="19" fill="rgb(198,69,43)" stroke="white" stroke-width="0.4"/>
+  <text x="1055.5" y="95" font-size="11" fill="#111">at</text>
+</g>
+<g>
+  <title>aten::mul | 6.31 ms (0.9%)</title>
+  <rect x="1066.7" y="80" width="12.4" height="19" fill="rgb(214,110,35)" stroke="white" stroke-width="0.4"/>
+  <text x="1069.7" y="95" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::embedding | 4.83 ms (0.7%)</title>
+  <rect x="1079.8" y="80" width="9.3" height="19" fill="rgb(202,170,81)" stroke="white" stroke-width="0.4"/>
+  <text x="1082.8" y="95" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::add | 2.57 ms (0.4%)</title>
+  <rect x="1089.9" y="80" width="4.6" height="19" fill="rgb(206,174,60)" stroke="white" stroke-width="0.4"/>
+  <text x="1092.9" y="95" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::transpose | 1.79 ms (0.3%)</title>
+  <rect x="1095.3" y="80" width="3.0" height="19" fill="rgb(239,173,107)" stroke="white" stroke-width="0.4"/>
+  <text x="1098.3" y="95" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::matmul | 1.33 ms (0.2%)</title>
+  <rect x="1099.1" y="80" width="2.0" height="19" fill="rgb(227,221,35)" stroke="white" stroke-width="0.4"/>
+  <text x="1102.1" y="95" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::convolution | 247.55 ms (34.5%)</title>
+  <rect x="0.0" y="100" width="516.5" height="19" fill="rgb(231,140,87)" stroke="white" stroke-width="0.4"/>
+  <text x="3.0" y="115" font-size="11" fill="#111">aten::convolution</text>
+</g>
+<g>
+  <title>aten::constant_pad_nd | 56.76 ms (7.9%)</title>
+  <rect x="695.1" y="100" width="117.8" height="19" fill="rgb(248,246,87)" stroke="white" stroke-width="0.4"/>
+  <text x="698.1" y="115" font-size="11" fill="#111">aten::constant_p</text>
+</g>
+<g>
+  <title>aten::native_layer_norm | 51.86 ms (7.2%)</title>
+  <rect x="875.8" y="100" width="107.6" height="19" fill="rgb(214,83,71)" stroke="white" stroke-width="0.4"/>
+  <text x="878.8" y="115" font-size="11" fill="#111">aten::native_la</text>
+</g>
+<g>
+  <title>aten::split | 5.92 ms (0.8%)</title>
+  <rect x="1031.8" y="100" width="11.6" height="19" fill="rgb(241,198,99)" stroke="white" stroke-width="0.4"/>
+  <text x="1034.8" y="115" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::index_select | 2.37 ms (0.3%)</title>
+  <rect x="1079.8" y="100" width="4.2" height="19" fill="rgb(198,144,89)" stroke="white" stroke-width="0.4"/>
+  <text x="1082.8" y="115" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::mm | 0.64 ms (0.1%)</title>
+  <rect x="1099.1" y="100" width="0.5" height="19" fill="rgb(244,72,57)" stroke="white" stroke-width="0.4"/>
+  <text x="1102.1" y="115" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::_convolution | 163.09 ms (22.7%)</title>
+  <rect x="0.0" y="120" width="340.0" height="19" fill="rgb(238,138,92)" stroke="white" stroke-width="0.4"/>
+  <text x="3.0" y="135" font-size="11" fill="#111">aten::_convolution</text>
+</g>
+<g>
+  <title>aten::copy_ | 12.61 ms (1.8%)</title>
+  <rect x="695.1" y="120" width="25.6" height="19" fill="rgb(222,84,45)" stroke="white" stroke-width="0.4"/>
+  <text x="698.1" y="135" font-size="11" fill="#111">ate</text>
+</g>
+<g>
+  <title>aten::fill_ | 11.57 ms (1.6%)</title>
+  <rect x="721.5" y="120" width="23.4" height="19" fill="rgb(248,144,96)" stroke="white" stroke-width="0.4"/>
+  <text x="724.5" y="135" font-size="11" fill="#111">ate</text>
+</g>
+<g>
+  <title>aten::narrow | 1.69 ms (0.2%)</title>
+  <rect x="745.7" y="120" width="2.7" height="19" fill="rgb(214,182,85)" stroke="white" stroke-width="0.4"/>
+  <text x="748.7" y="135" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::empty | 1.63 ms (0.2%)</title>
+  <rect x="749.2" y="120" width="2.6" height="19" fill="rgb(198,124,49)" stroke="white" stroke-width="0.4"/>
+  <text x="752.2" y="135" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::contiguous | 25.75 ms (3.6%)</title>
+  <rect x="875.8" y="120" width="53.0" height="19" fill="rgb(198,160,82)" stroke="white" stroke-width="0.4"/>
+  <text x="878.8" y="135" font-size="11" fill="#111">aten::c</text>
+</g>
+<g>
+  <title>aten::empty | 4.13 ms (0.6%)</title>
+  <rect x="929.6" y="120" width="7.8" height="19" fill="rgb(198,124,49)" stroke="white" stroke-width="0.4"/>
+  <text x="932.6" y="135" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::narrow | 2.61 ms (0.4%)</title>
+  <rect x="1031.8" y="120" width="4.6" height="19" fill="rgb(214,182,85)" stroke="white" stroke-width="0.4"/>
+  <text x="1034.8" y="135" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::cudnn_convolution | 67.19 ms (9.4%)</title>
+  <rect x="0.0" y="140" width="139.6" height="19" fill="rgb(227,221,58)" stroke="white" stroke-width="0.4"/>
+  <text x="3.0" y="155" font-size="11" fill="#111">aten::cudnn_convolut</text>
+</g>
+<g>
+  <title>aten::add_ | 10.29 ms (1.4%)</title>
+  <rect x="140.4" y="140" width="20.7" height="19" fill="rgb(230,137,87)" stroke="white" stroke-width="0.4"/>
+  <text x="143.4" y="155" font-size="11" fill="#111">ate</text>
+</g>
+<g>
+  <title>aten::reshape | 0.95 ms (0.1%)</title>
+  <rect x="161.9" y="140" width="1.2" height="19" fill="rgb(198,102,82)" stroke="white" stroke-width="0.4"/>
+  <text x="164.9" y="155" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::squeeze | 0.65 ms (0.1%)</title>
+  <rect x="163.9" y="140" width="0.6" height="19" fill="rgb(218,215,55)" stroke="white" stroke-width="0.4"/>
+  <text x="166.9" y="155" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::unsqueeze | 0.56 ms (0.1%)</title>
+  <rect x="165.3" y="140" width="0.4" height="19" fill="rgb(209,90,66)" stroke="white" stroke-width="0.4"/>
+  <text x="168.3" y="155" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::slice | 0.61 ms (0.1%)</title>
+  <rect x="745.7" y="140" width="0.5" height="19" fill="rgb(206,110,32)" stroke="white" stroke-width="0.4"/>
+  <text x="748.7" y="155" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::clone | 17.18 ms (2.4%)</title>
+  <rect x="875.8" y="140" width="35.1" height="19" fill="rgb(198,153,62)" stroke="white" stroke-width="0.4"/>
+  <text x="878.8" y="155" font-size="11" fill="#111">aten:</text>
+</g>
+<g>
+  <title>aten::slice | 0.83 ms (0.1%)</title>
+  <rect x="1031.8" y="140" width="0.9" height="19" fill="rgb(206,110,32)" stroke="white" stroke-width="0.4"/>
+  <text x="1034.8" y="155" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::copy_ | 4.68 ms (0.7%)</title>
+  <rect x="875.8" y="160" width="9.0" height="19" fill="rgb(222,84,45)" stroke="white" stroke-width="0.4"/>
+  <text x="878.8" y="175" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::empty_like | 4.36 ms (0.6%)</title>
+  <rect x="885.6" y="160" width="8.3" height="19" fill="rgb(209,107,87)" stroke="white" stroke-width="0.4"/>
+  <text x="888.6" y="175" font-size="11" fill="#111">a</text>
+</g>
+<g>
+  <title>aten::empty | 1.84 ms (0.3%)</title>
+  <rect x="885.6" y="180" width="3.0" height="19" fill="rgb(198,124,49)" stroke="white" stroke-width="0.4"/>
+  <text x="888.6" y="195" font-size="11" fill="#111">a</text>
+</g>
+</svg>
