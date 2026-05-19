@@ -215,6 +215,8 @@ def train_one_epoch(
         users = batch["user"].to(device, non_blocking=True)
         inputs = batch["input"].to(device, non_blocking=True)
         targets = batch["target"].to(device, non_blocking=True)
+        time_buckets = batch["time_delta"].to(device, non_blocking=True) \
+            if "time_delta" in batch else None
         if sse_p > 0:
             inputs = sse_pt_augment(inputs, n_items=n_items, p=sse_p)
 
@@ -241,7 +243,9 @@ def train_one_epoch(
         autocast = torch.autocast(device_type=device.type, dtype=autocast_dtype) \
             if device.type == "cuda" else nullcontext()
         with autocast:
-            pos_logits, neg_logits, mask = model.score_pairs(inputs, targets, neg_ids)
+            pos_logits, neg_logits, mask = model.score_pairs(
+                inputs, targets, neg_ids, time_buckets
+            )
             if isinstance(loss_fn, SampledSoftmaxLoss):
                 loss = loss_fn(pos_logits, neg_logits, mask, targets, neg_ids)
             else:
@@ -354,15 +358,20 @@ def run_training(cfg: Dict[str, Any], args: argparse.Namespace) -> Dict[str, Any
     shuffle_sessions = aug_cfg.get("shuffle_sessions", False)
     random_window    = aug_cfg.get("random_window", False)
     session_cuts = proc.user_session_cuts if shuffle_sessions else None
+    use_time_delta = cfg["model"].get("use_time_delta", False)
+    user_ts = proc.user_timestamps if use_time_delta else None
     train_ds = SeqTrainDataset(
         train_seq, max_len=max_len, min_train_len=2,
         session_cuts=session_cuts,
         shuffle_sessions=shuffle_sessions,
         random_window=random_window,
+        user_timestamps=user_ts,
     )
-    val_ds = SeqEvalDataset(train_seq, val_target, max_len=max_len)
+    val_ds = SeqEvalDataset(train_seq, val_target, max_len=max_len,
+                            user_timestamps=user_ts)
     test_ds = SeqEvalDataset(train_seq, test_target, max_len=max_len,
-                             prepend_seq={u: [v] for u, v in val_target.items()})
+                             prepend_seq={u: [v] for u, v in val_target.items()},
+                             user_timestamps=user_ts)
 
     bs_train = cfg["training"]["batch_size"]
     bs_eval = cfg["training"].get("eval_batch_size", 512)

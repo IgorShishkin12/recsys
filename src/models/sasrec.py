@@ -32,6 +32,8 @@ class SASRecConfig:
     use_ligr_gates: bool = True
     use_side: bool = False
     side_use_genome: bool = True
+    use_time_delta: bool = False
+    n_time_buckets: int = 9      # 0=pad/unknown, 1–8 log-scale buckets
 
 
 # ----------------------------- RoPE ---------------------------------------- #
@@ -187,6 +189,10 @@ class SASRec(nn.Module):
         super().__init__()
         self.cfg = cfg
         self.item_emb = nn.Embedding(cfg.n_items + 1, cfg.d, padding_idx=0)
+        self.time_delta_emb = (
+            nn.Embedding(cfg.n_time_buckets, cfg.d, padding_idx=0)
+            if cfg.use_time_delta else None
+        )
         # Even with RoPE inside attention, a small learned positional bias
         # helps disambiguate left-padded short sequences. We DON'T use it when
         # use_rope=True; the input embedding alone is enough.
@@ -212,11 +218,17 @@ class SASRec(nn.Module):
         """Tied weights — output projection IS the input embedding matrix."""
         return self.item_emb.weight                            # [n_items+1, d]
 
-    def encode(self, input_ids: torch.Tensor) -> torch.Tensor:
+    def encode(
+        self,
+        input_ids: torch.Tensor,
+        time_buckets: torch.Tensor | None = None,
+    ) -> torch.Tensor:
         """input_ids: [B, L] long → hidden [B, L, d]."""
         B, L = input_ids.shape
         pad_mask = input_ids == 0                              # [B, L] True=PAD
         x = self.item_emb(input_ids)
+        if self.time_delta_emb is not None and time_buckets is not None:
+            x = x + self.time_delta_emb(time_buckets)
         if self.side is not None:
             x = x + self.side(input_ids)
         if self.use_pos_emb:
@@ -227,15 +239,23 @@ class SASRec(nn.Module):
             x = blk(x, pad_mask)
         return self.final_ln(x)
 
-    def forward(self, input_ids: torch.Tensor) -> torch.Tensor:
-        return self.encode(input_ids)
+    def forward(
+        self,
+        input_ids: torch.Tensor,
+        time_buckets: torch.Tensor | None = None,
+    ) -> torch.Tensor:
+        return self.encode(input_ids, time_buckets)
 
     @torch.no_grad()
-    def score_all(self, input_ids: torch.Tensor) -> torch.Tensor:
+    def score_all(
+        self,
+        input_ids: torch.Tensor,
+        time_buckets: torch.Tensor | None = None,
+    ) -> torch.Tensor:
         """For evaluation: return logits over the full catalog at the LAST position.
         Returns [B, n_items+1]; caller should mask PAD column and seen items.
         """
-        h = self.encode(input_ids)                             # [B, L, d]
+        h = self.encode(input_ids, time_buckets)               # [B, L, d]
         last = h[:, -1, :]                                     # [B, d]
         return last @ self.output_embedding.T                  # [B, n_items+1]
 
@@ -244,6 +264,7 @@ class SASRec(nn.Module):
         input_ids: torch.Tensor,
         target_ids: torch.Tensor,
         neg_ids: torch.Tensor,
+        time_buckets: torch.Tensor | None = None,
     ) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
         """Compute logits for shifted-sequence training.
 
@@ -253,7 +274,7 @@ class SASRec(nn.Module):
 
         Returns (pos_logits [B,L], neg_logits [B,L,K], target_mask [B,L]).
         """
-        h = self.encode(input_ids)                             # [B, L, d]
+        h = self.encode(input_ids, time_buckets)               # [B, L, d]
         E = self.output_embedding                              # [V, d]
         # Positive logits: <h_t, E[target_t]>
         pos_emb = E[target_ids]                                # [B, L, d]

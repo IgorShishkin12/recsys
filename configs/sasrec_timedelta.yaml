@@ -1,0 +1,60 @@
+# SASRec + time-delta embedding.
+#
+# Adds a learned nn.Embedding(9, d) keyed by log-scale time gap between
+# consecutive items.  Bucket 0 = pad/unknown; buckets 1–8 cover:
+#   1: same second (batch-logged)  2: <1min  3: 1–30min  4: 30min–2h
+#   5: 2h–1day  6: 1day–1week  7: 1week–1month  8: >1month
+#
+# Adds 9*256 = 2304 parameters — negligible — but gives the model explicit
+# temporal distance signal that it currently infers only from co-occurrence.
+
+seed: 42
+
+model:
+  name: sasrec
+  d: 256
+  n_blocks: 3
+  n_heads: 4
+  max_len: 256
+  dropout: 0.2
+  ffn_mult: 4
+  use_rope: true
+  use_ligr_gates: false
+  use_side: false
+  side_use_genome: true
+  side_dropout: 0.1
+  use_time_delta: true
+  n_time_buckets: 9
+
+loss:
+  name: sampled_softmax
+  n_neg: 256
+  gbce_t: 0.75
+  sampling: uniform
+  in_batch_negatives: false
+
+aug:
+  sse_pt_p: 0.0
+  shuffle_sessions: false
+  random_window: false
+
+training:
+  batch_size: 256
+  fixed_pad: true
+  eval_batch_size: 1024
+  num_workers: 8
+  lr: 1.0e-3
+  weight_decay: 0.0
+  warmup_frac: 0.01
+  min_lr_ratio: 1.0
+  ema_decay: 0.0
+  grad_clip: 1.0
+  max_epochs: 100
+  eval_every_epochs: 1
+  early_stop_patience: 10
+  log_every_steps: 200
+  snapshot_ensemble: true
+  curriculum_warmup_frac: 0.0
+
+eval:
+  ks: [5, 10, 20]

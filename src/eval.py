@@ -63,8 +63,10 @@ def evaluate_full_catalog(
         users = batch["user"].to(device, non_blocking=True)
         inputs = batch["input"].to(device, non_blocking=True)
         targets = batch["target"].to(device, non_blocking=True)
+        time_buckets = batch["time_delta"].to(device, non_blocking=True) \
+            if "time_delta" in batch else None
 
-        scores = model.score_all(inputs)                        # [B, V]
+        scores = model.score_all(inputs, time_buckets)          # [B, V]
         scores[:, 0] = NEG_INF                                  # mask PAD column
 
         # Vectorised filter-seen: scatter -inf at all seen item ids.

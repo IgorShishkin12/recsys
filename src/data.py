@@ -25,6 +25,31 @@ from torch.utils.data import BatchSampler, Dataset, Sampler
 PAD_ID = 0
 SESSION_GAP_SEC = 1800  # 30-minute session boundary
 
+# Log-scale time-delta buckets (seconds).  Bucket 0 = pad/unknown (no gradient).
+# 1: same second (batch-logged), 2: <1min, 3: 1–30min, 4: 30min–2h,
+# 5: 2h–1day, 6: 1day–1week, 7: 1week–1month, 8: >1month
+_TD_BOUNDS = (0, 1, 60, 1800, 7200, 86400, 604800, 2592000)
+N_TIME_BUCKETS = len(_TD_BOUNDS) + 1   # = 9
+
+
+def time_delta_bucket(delta_sec: int) -> int:
+    """Map a non-negative time gap (seconds) to bucket index 1–8."""
+    for i, b in enumerate(_TD_BOUNDS):
+        if delta_sec <= b:
+            return i + 1
+    return N_TIME_BUCKETS - 1
+
+
+def _seq_to_time_deltas(ts: List[int], n: int) -> List[int]:
+    """Given a timestamp list of length n, return n time-delta bucket IDs.
+
+    Index 0 is always bucket 0 (first item — no predecessor in this window).
+    """
+    buckets = [0]
+    for i in range(1, n):
+        buckets.append(time_delta_bucket(max(0, ts[i] - ts[i - 1])))
+    return buckets
+
 
 @dataclass
 class ProcessedData:
@@ -38,6 +63,8 @@ class ProcessedData:
     user_id_to_idx: Dict[int, int]          # original userId -> 0..n_users-1
     # Session-start indices per user (0-based into user_seq); None for old pickles.
     user_session_cuts: Optional[Dict[int, List[int]]] = None
+    # Unix timestamps aligned with user_seq; None for old pickles.
+    user_timestamps: Optional[Dict[int, List[int]]] = None
 
     @property
     def vocab_size(self) -> int:
@@ -100,9 +127,11 @@ def preprocess_ml20m(
 
     user_seq: Dict[int, List[int]] = {}
     user_session_cuts: Dict[int, List[int]] = {}
+    user_timestamps: Dict[int, List[int]] = {}
     for uidx, group in df.groupby("user_idx", sort=False):
         user_seq[int(uidx)] = group["item_idx"].tolist()
         ts = group["timestamp"].to_numpy()
+        user_timestamps[int(uidx)] = ts.tolist()
         gaps = np.diff(ts)
         cuts = (np.where(gaps > SESSION_GAP_SEC)[0] + 1).tolist()
         user_session_cuts[int(uidx)] = cuts
@@ -127,6 +156,7 @@ def preprocess_ml20m(
         movie_id_to_idx=movie_id_to_idx,
         user_id_to_idx=user_id_to_idx,
         user_session_cuts=user_session_cuts,
+        user_timestamps=user_timestamps,
     )
     with open(out_path, "wb") as f:
         pickle.dump(processed, f, protocol=pickle.HIGHEST_PROTOCOL)
@@ -199,6 +229,7 @@ class SeqTrainDataset(Dataset):
         session_cuts: Optional[Dict[int, List[int]]] = None,
         shuffle_sessions: bool = False,
         random_window: bool = False,
+        user_timestamps: Optional[Dict[int, List[int]]] = None,
     ):
         self.users: List[int] = [u for u, s in train_seq.items() if len(s) >= min_train_len]
         self.train_seq = train_seq
@@ -206,6 +237,7 @@ class SeqTrainDataset(Dataset):
         self.session_cuts = session_cuts
         self.shuffle_sessions = shuffle_sessions
         self.random_window = random_window
+        self.user_timestamps = user_timestamps
 
     def __len__(self) -> int:
         return len(self.users)
@@ -213,26 +245,38 @@ class SeqTrainDataset(Dataset):
     def __getitem__(self, idx: int) -> Dict[str, torch.Tensor]:
         u = self.users[idx]
         seq = list(self.train_seq[u])
+        # user_timestamps covers the full sequence including val/test items; slice to train only.
+        ts: Optional[List[int]] = list(self.user_timestamps[u][:len(seq)]) if self.user_timestamps else None
 
         if self.shuffle_sessions and self.session_cuts is not None:
             cuts = self.session_cuts.get(u, [])
             if cuts:
                 seq = _shuffle_within_sessions(seq, cuts)
+                ts = None  # timestamps no longer aligned after shuffle
 
         if self.random_window and len(seq) > self.max_len + 1:
             start = random.randint(0, len(seq) - self.max_len - 1)
             seq = seq[start : start + self.max_len + 1]
+            if ts is not None:
+                ts = ts[start : start + self.max_len + 1]
         else:
             seq = seq[-(self.max_len + 1):]
+            if ts is not None:
+                ts = ts[-(self.max_len + 1):]
 
         inp = seq[:-1]
         tgt = seq[1:]
-        # No padding here — pad_collate pads each batch to its own max length.
-        return {
+        item = {
             "user":   torch.tensor(u,   dtype=torch.long),
             "input":  torch.tensor(inp, dtype=torch.long),
             "target": torch.tensor(tgt, dtype=torch.long),
         }
+        if ts is not None:
+            inp_ts = ts[:-1]
+            item["time_delta"] = torch.tensor(
+                _seq_to_time_deltas(inp_ts, len(inp_ts)), dtype=torch.long
+            )
+        return item
 
 
 class LengthCurriculumSampler(Sampler):
@@ -267,17 +311,20 @@ class LengthCurriculumSampler(Sampler):
 def make_fixed_collate(max_len: int):
     """Returns a collate_fn that always pads to exactly max_len (fixed input shape)."""
     def _collate(batch):
-        users, inputs, targets = [], [], []
+        has_td = "time_delta" in batch[0]
+        users, inputs, targets, tds = [], [], [], []
         for b in batch:
             pad = max_len - b["input"].size(0)
             users.append(b["user"])
             inputs.append(F.pad(b["input"],  (pad, 0)))
             targets.append(F.pad(b["target"], (pad, 0)))
-        return {
-            "user":   torch.stack(users),
-            "input":  torch.stack(inputs),
-            "target": torch.stack(targets),
-        }
+            if has_td:
+                tds.append(F.pad(b["time_delta"], (pad, 0)))
+        out = {"user": torch.stack(users), "input": torch.stack(inputs),
+               "target": torch.stack(targets)}
+        if has_td:
+            out["time_delta"] = torch.stack(tds)
+        return out
     return _collate
 
 
@@ -289,17 +336,20 @@ def pad_collate(batch: List[Dict[str, torch.Tensor]]) -> Dict[str, torch.Tensor]
     """
     max_L = max(b["input"].size(0) for b in batch)
     pad_L = 1 << (max_L - 1).bit_length()   # next power of 2 >= max_L
-    users, inputs, targets = [], [], []
+    has_td = "time_delta" in batch[0]
+    users, inputs, targets, tds = [], [], [], []
     for b in batch:
         pad = pad_L - b["input"].size(0)
         users.append(b["user"])
         inputs.append(F.pad(b["input"],  (pad, 0)))
         targets.append(F.pad(b["target"], (pad, 0)))
-    return {
-        "user":   torch.stack(users),
-        "input":  torch.stack(inputs),
-        "target": torch.stack(targets),
-    }
+        if has_td:
+            tds.append(F.pad(b["time_delta"], (pad, 0)))
+    out = {"user": torch.stack(users), "input": torch.stack(inputs),
+           "target": torch.stack(targets)}
+    if has_td:
+        out["time_delta"] = torch.stack(tds)
+    return out
 
 
 class BucketBatchSampler(BatchSampler):
@@ -367,12 +417,14 @@ class SeqEvalDataset(Dataset):
         target_map: Dict[int, int],
         max_len: int = 200,
         prepend_seq: Dict[int, List[int]] | None = None,
+        user_timestamps: Optional[Dict[int, List[int]]] = None,
     ):
         self.users: List[int] = [u for u in target_map if u in train_seq]
         self.train_seq = train_seq
         self.target_map = target_map
         self.max_len = max_len
         self.prepend_seq = prepend_seq or {}
+        self.user_timestamps = user_timestamps
 
     def __len__(self) -> int:
         return len(self.users)
@@ -380,15 +432,31 @@ class SeqEvalDataset(Dataset):
     def __getitem__(self, idx: int) -> Dict[str, torch.Tensor]:
         u = self.users[idx]
         history = list(self.train_seq[u])
+        ts: Optional[List[int]] = list(self.user_timestamps[u]) if self.user_timestamps else None
+
         if u in self.prepend_seq:
-            history = history + list(self.prepend_seq[u])
+            extra = list(self.prepend_seq[u])
+            history = history + extra
+            if ts is not None:
+                n_train = len(self.train_seq[u])
+                extra_ts = list(self.user_timestamps[u][n_train : n_train + len(extra)])
+                ts = ts + extra_ts
+
         history = history[-self.max_len:]
+        if ts is not None:
+            ts = ts[-self.max_len:]
+
         inp = left_pad(history, self.max_len)
-        return {
+        item = {
             "user": torch.tensor(u, dtype=torch.long),
             "input": torch.tensor(inp, dtype=torch.long),
             "target": torch.tensor(self.target_map[u], dtype=torch.long),
         }
+        if ts is not None:
+            pad = self.max_len - len(ts)
+            buckets = [0] * pad + _seq_to_time_deltas(ts, len(ts))
+            item["time_delta"] = torch.tensor(buckets, dtype=torch.long)
+        return item
 
 
 def build_user_seen_lookup(
