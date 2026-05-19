@@ -286,39 +286,56 @@ def pad_collate(batch: List[Dict[str, torch.Tensor]]) -> Dict[str, torch.Tensor]
 
 
 class BucketBatchSampler(BatchSampler):
-    """Batches sequences by approximate length to minimise padding waste.
+    """Batches sequences by approximate length with a fixed token budget.
 
-    Adds uniform noise of [0, bucket_width) to lengths before sorting so the
-    batch order varies across epochs without strict length ordering.
+    Batch size adapts per bucket: B = token_budget // next_pow2(bucket_max_len).
+    This keeps neg_emb memory [B, L, K, d] constant regardless of sequence length,
+    so long-sequence users train safely without OOM.
+
+    Adds uniform noise of [0, bucket_width) to lengths before sorting so batch
+    order and composition vary across epochs.
     """
 
     def __init__(
         self,
         seq_lens: np.ndarray,
-        batch_size: int,
+        token_budget: int,
         drop_last: bool = True,
         bucket_width: int = 16,
+        min_batch: int = 16,
     ):
-        self.seq_lens    = np.asarray(seq_lens, dtype=np.float32)
-        self.batch_size  = batch_size
-        self.drop_last   = drop_last
+        self.seq_lens     = np.asarray(seq_lens, dtype=np.float32)
+        self.token_budget = token_budget
+        self.drop_last    = drop_last
         self.bucket_width = bucket_width
+        self.min_batch    = min_batch
+
+    def _batch_size(self, L: int) -> int:
+        pad_L = 1 << max(1, (L - 1)).bit_length()
+        return max(self.min_batch, self.token_budget // pad_L)
 
     def __iter__(self):
         noise = np.random.uniform(0, self.bucket_width, len(self.seq_lens))
         order = np.argsort(self.seq_lens + noise)
-        batches = [
-            order[i : i + self.batch_size].tolist()
-            for i in range(0, len(order), self.batch_size)
-        ]
-        if self.drop_last and len(batches[-1]) < self.batch_size:
-            batches.pop()
+        batches: list = []
+        i = 0
+        while i < len(order):
+            bs = self._batch_size(int(self.seq_lens[order[i]]))
+            batch = order[i : i + bs].tolist()
+            if not self.drop_last or len(batch) == bs:
+                batches.append(batch)
+            i += bs
         np.random.shuffle(batches)
         yield from batches
 
     def __len__(self) -> int:
-        n = len(self.seq_lens)
-        return n // self.batch_size if self.drop_last else (n + self.batch_size - 1) // self.batch_size
+        sorted_lens = np.sort(self.seq_lens)
+        i = count = 0
+        while i < len(sorted_lens):
+            bs = self._batch_size(int(sorted_lens[i]))
+            count += 1
+            i += bs
+        return count
 
 
 class SeqEvalDataset(Dataset):

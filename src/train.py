@@ -373,17 +373,19 @@ def run_training(cfg: Dict[str, Any], args: argparse.Namespace) -> Dict[str, Any
     seq_lens = np.array([len(train_seq[u]) for u in train_ds.users])
     curriculum_sampler = LengthCurriculumSampler(seq_lens, warmup_epochs=warmup_epochs)
 
+    # token_budget = B * L_pad kept constant → neg_emb memory flat across all lengths.
+    # Default: batch_size * max_len (same memory as fixed-length baseline).
+    token_budget = cfg["training"].get("token_budget", bs_train * max_len)
+
     _loader_kw = dict(num_workers=nw, pin_memory=(device.type == "cuda"),
                       persistent_workers=(nw > 0), collate_fn=pad_collate)
     if warmup_epochs > 0:
-        # Curriculum overrides bucketed sampling; pad_collate still reduces
-        # padding for random batches relative to global max_len.
         train_loader = DataLoader(
             train_ds, batch_size=bs_train, sampler=curriculum_sampler,
             drop_last=True, **_loader_kw,
         )
     else:
-        bucket_sampler = BucketBatchSampler(seq_lens, batch_size=bs_train, drop_last=True)
+        bucket_sampler = BucketBatchSampler(seq_lens, token_budget=token_budget, drop_last=True)
         train_loader = DataLoader(train_ds, batch_sampler=bucket_sampler, **_loader_kw)
     val_loader = DataLoader(
         val_ds, batch_size=bs_eval, shuffle=False, drop_last=False,
