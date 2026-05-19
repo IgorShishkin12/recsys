@@ -264,6 +264,23 @@ class LengthCurriculumSampler(Sampler):
         return len(self.seq_lens)
 
 
+def make_fixed_collate(max_len: int):
+    """Returns a collate_fn that always pads to exactly max_len (fixed input shape)."""
+    def _collate(batch):
+        users, inputs, targets = [], [], []
+        for b in batch:
+            pad = max_len - b["input"].size(0)
+            users.append(b["user"])
+            inputs.append(F.pad(b["input"],  (pad, 0)))
+            targets.append(F.pad(b["target"], (pad, 0)))
+        return {
+            "user":   torch.stack(users),
+            "input":  torch.stack(inputs),
+            "target": torch.stack(targets),
+        }
+    return _collate
+
+
 def pad_collate(batch: List[Dict[str, torch.Tensor]]) -> Dict[str, torch.Tensor]:
     """Left-pad a batch of variable-length sequences to the next power of 2 >= batch max.
 

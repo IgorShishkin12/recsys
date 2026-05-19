@@ -259,8 +259,16 @@ class SASRec(nn.Module):
         pos_emb = E[target_ids]                                # [B, L, d]
         pos_logits = (h * pos_emb).sum(dim=-1)                 # [B, L]
         # Negative logits: <h_t, E[neg_t,k]>
+        # Use bmm instead of einsum to avoid materialising an [B,L,K,d] intermediate
+        # (einsum would expand h → 8 GB temporary on top of neg_emb's 8 GB).
         neg_emb = E[neg_ids]                                   # [B, L, K, d]
-        neg_logits = torch.einsum("bld,blkd->blk", h, neg_emb)
+        B, L, K, dh = neg_emb.shape
+        # bmm([BL, K, d], [BL, d, 1]) → [BL, K, 1]: both operands stay contiguous,
+        # no transpose copy needed → peak memory = neg_emb (8 GB) not 2× that.
+        neg_logits = torch.bmm(
+            neg_emb.view(B * L, K, dh),
+            h.reshape(B * L, dh, 1),
+        ).squeeze(2).view(B, L, K)                             # [B, L, K]
         # Mask: position is valid for loss if input_t != PAD AND target_t != PAD.
         # We left-pad inputs, so a "real" position has both. Use input mask.
         target_mask = (input_ids != 0)                          # [B, L]

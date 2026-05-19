@@ -42,6 +42,7 @@ from .data import (
     SeqEvalDataset,
     SeqTrainDataset,
     load_processed,
+    make_fixed_collate,
     pad_collate,
     preprocess_ml20m,
     split_loo,
@@ -377,9 +378,16 @@ def run_training(cfg: Dict[str, Any], args: argparse.Namespace) -> Dict[str, Any
     # Default: batch_size * max_len (same memory as fixed-length baseline).
     token_budget = cfg["training"].get("token_budget", bs_train * max_len)
 
+    fixed_pad = cfg["training"].get("fixed_pad", False)
+    collate_fn = make_fixed_collate(max_len) if fixed_pad else pad_collate
     _loader_kw = dict(num_workers=nw, pin_memory=(device.type == "cuda"),
-                      persistent_workers=(nw > 0), collate_fn=pad_collate)
-    if warmup_epochs > 0:
+                      persistent_workers=(nw > 0), collate_fn=collate_fn)
+    if fixed_pad:
+        train_loader = DataLoader(
+            train_ds, batch_size=bs_train, shuffle=True,
+            drop_last=True, **_loader_kw,
+        )
+    elif warmup_epochs > 0:
         train_loader = DataLoader(
             train_ds, batch_size=bs_train, sampler=curriculum_sampler,
             drop_last=True, **_loader_kw,

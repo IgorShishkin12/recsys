@@ -1,0 +1,60 @@
+# SASRec fine-tune from sasrec_notrim/best.pt with session-shuffle augmentation.
+#
+# Strategy:
+#   - Warm-start from the converged no-augmentation checkpoint.
+#   - Session shuffle only (random_window=false — it hurt in from-scratch runs).
+#   - Fixed L=256 padding: every user padded to max_len regardless of actual length.
+#     Consistent shape → max CUDA kernel reuse + mixed short/long users per batch.
+#   - Lower LR (1e-4) and short cosine decay to avoid destabilising the checkpoint.
+#   - Early stop patience=10 as usual; expect modest NDCG gain (~+0.002..0.005).
+
+__warm_start__: runs/sasrec_notrim/best.pt
+
+seed: 42
+
+model:
+  name: sasrec
+  d: 256
+  n_blocks: 3
+  n_heads: 4
+  max_len: 256
+  dropout: 0.2
+  ffn_mult: 4
+  use_rope: true
+  use_ligr_gates: false
+  use_side: false
+  side_use_genome: true
+  side_dropout: 0.1
+
+loss:
+  name: sampled_softmax
+  n_neg: 256
+  gbce_t: 0.75
+  sampling: uniform
+  in_batch_negatives: false
+
+aug:
+  sse_pt_p: 0.0
+  shuffle_sessions: true
+  random_window: false
+
+training:
+  batch_size: 256
+  fixed_pad: true             # always pad to max_len=256; random shuffle; no bucketing
+  eval_batch_size: 1024
+  num_workers: 8
+  lr: 1.0e-4
+  weight_decay: 0.0
+  warmup_frac: 0.05
+  min_lr_ratio: 0.1
+  ema_decay: 0.0
+  grad_clip: 1.0
+  max_epochs: 30
+  eval_every_epochs: 1
+  early_stop_patience: 10
+  log_every_steps: 200
+  snapshot_ensemble: false
+  curriculum_warmup_frac: 0.0
+
+eval:
+  ks: [5, 10, 20]
