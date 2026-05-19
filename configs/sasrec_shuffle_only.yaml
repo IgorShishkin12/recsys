@@ -1,0 +1,57 @@
+# SASRec with within-session shuffle only — ablation of sasrec_augmented.
+#
+# Hypothesis: random_window caused the regression in sasrec_augmented.
+# This run isolates the session-shuffle effect at max_len=256 with
+# all other hyperparameters matching baseline (B=256, n_neg=256).
+#
+# Changes vs configs/sasrec.yaml (baseline):
+#   - max_len: 200 -> 256
+#   - aug.shuffle_sessions: true  (permute items within 30-min session clusters)
+
+seed: 42
+
+model:
+  name: sasrec
+  d: 256
+  n_blocks: 3
+  n_heads: 4
+  max_len: 256
+  dropout: 0.2
+  ffn_mult: 4
+  use_rope: true
+  use_ligr_gates: false
+  use_side: false
+  side_use_genome: true
+  side_dropout: 0.1
+
+loss:
+  name: sampled_softmax
+  n_neg: 256
+  gbce_t: 0.75
+  sampling: uniform
+  in_batch_negatives: false
+
+aug:
+  sse_pt_p: 0.0
+  shuffle_sessions: true
+  random_window: false
+
+training:
+  batch_size: 256
+  eval_batch_size: 1024
+  num_workers: 8
+  lr: 1.0e-3
+  weight_decay: 0.0
+  warmup_frac: 0.01
+  min_lr_ratio: 1.0
+  ema_decay: 0.0
+  grad_clip: 1.0
+  max_epochs: 100
+  eval_every_epochs: 1
+  early_stop_patience: 10
+  log_every_steps: 200
+  snapshot_ensemble: true
+  curriculum_warmup_frac: 0.0
+
+eval:
+  ks: [5, 10, 20]
