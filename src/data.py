@@ -18,7 +18,8 @@ from typing import Dict, List, Optional, Sequence, Tuple
 import numpy as np
 import pandas as pd
 import torch
-from torch.utils.data import Dataset, Sampler
+import torch.nn.functional as F
+from torch.utils.data import BatchSampler, Dataset, Sampler
 
 
 PAD_ID = 0
@@ -226,11 +227,10 @@ class SeqTrainDataset(Dataset):
 
         inp = seq[:-1]
         tgt = seq[1:]
-        inp = left_pad(inp, self.max_len)
-        tgt = left_pad(tgt, self.max_len)
+        # No padding here — pad_collate pads each batch to its own max length.
         return {
-            "user": torch.tensor(u, dtype=torch.long),
-            "input": torch.tensor(inp, dtype=torch.long),
+            "user":   torch.tensor(u,   dtype=torch.long),
+            "input":  torch.tensor(inp, dtype=torch.long),
             "target": torch.tensor(tgt, dtype=torch.long),
         }
 
@@ -262,6 +262,63 @@ class LengthCurriculumSampler(Sampler):
 
     def __len__(self) -> int:
         return len(self.seq_lens)
+
+
+def pad_collate(batch: List[Dict[str, torch.Tensor]]) -> Dict[str, torch.Tensor]:
+    """Left-pad a batch of variable-length sequences to the next power of 2 >= batch max.
+
+    Power-of-2 lengths reuse compiled CUDA kernels across batches (same shape →
+    no recompilation) and align to tensor-core-friendly sizes.
+    """
+    max_L = max(b["input"].size(0) for b in batch)
+    pad_L = 1 << (max_L - 1).bit_length()   # next power of 2 >= max_L
+    users, inputs, targets = [], [], []
+    for b in batch:
+        pad = pad_L - b["input"].size(0)
+        users.append(b["user"])
+        inputs.append(F.pad(b["input"],  (pad, 0)))
+        targets.append(F.pad(b["target"], (pad, 0)))
+    return {
+        "user":   torch.stack(users),
+        "input":  torch.stack(inputs),
+        "target": torch.stack(targets),
+    }
+
+
+class BucketBatchSampler(BatchSampler):
+    """Batches sequences by approximate length to minimise padding waste.
+
+    Adds uniform noise of [0, bucket_width) to lengths before sorting so the
+    batch order varies across epochs without strict length ordering.
+    """
+
+    def __init__(
+        self,
+        seq_lens: np.ndarray,
+        batch_size: int,
+        drop_last: bool = True,
+        bucket_width: int = 16,
+    ):
+        self.seq_lens    = np.asarray(seq_lens, dtype=np.float32)
+        self.batch_size  = batch_size
+        self.drop_last   = drop_last
+        self.bucket_width = bucket_width
+
+    def __iter__(self):
+        noise = np.random.uniform(0, self.bucket_width, len(self.seq_lens))
+        order = np.argsort(self.seq_lens + noise)
+        batches = [
+            order[i : i + self.batch_size].tolist()
+            for i in range(0, len(order), self.batch_size)
+        ]
+        if self.drop_last and len(batches[-1]) < self.batch_size:
+            batches.pop()
+        np.random.shuffle(batches)
+        yield from batches
+
+    def __len__(self) -> int:
+        n = len(self.seq_lens)
+        return n // self.batch_size if self.drop_last else (n + self.batch_size - 1) // self.batch_size
 
 
 class SeqEvalDataset(Dataset):
